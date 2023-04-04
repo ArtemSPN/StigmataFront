@@ -1,0 +1,22 @@
+.navBtn{
+    fill: var(--primary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbarBtn{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar{
+    width: 100%;
+    padding: 10px 7px;
+    display: flex;
+    flex-direction: column;
+}
+
+

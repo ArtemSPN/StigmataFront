@@ -1,0 +1,44 @@
+@import "reset";
+@import "variables/global";
+@import "themes/normal";
+@import "themes/dark";
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+
+.app,
+.app_modal,
+.app_drawer {
+    font: var(--font-m);
+    color: var(--primary-color);
+}
+
+.app {
+    background: var(--bg-color);;
+    min-height: 100vh;
+    display: flex;
+}
+
+.content-page {
+    display: flex;
+    flex-grow: 1;
+}
+
+.page-wrapper {
+    flex-grow: 1;
+    padding: 20px;
+}
+
+*::-webkit-scrollbar {
+    width: 12px;               /* ширина scrollbar */
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: var(--card-bg);        /* цвет дорожки */
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--inverted-primary-color);    /* цвет плашки */
+    border-radius: 20px;       /* закругления плашки */
+    border: 2px solid var(--primary-color);  /* padding вокруг плашки */
+}
+

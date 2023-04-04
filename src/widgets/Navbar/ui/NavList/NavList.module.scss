@@ -1,0 +1,19 @@
+.navList{
+    background: inherit;
+    position: relative;
+    top: -15px;
+    width: 100%;
+    padding: 0 20px 20px 20px;
+    border-left: 1px solid var(--primary-color);
+    border-right: 1px solid var(--primary-color);
+    border-bottom: 1px solid var(--primary-color);
+    visibility: hidden;
+
+    transition: .2s linear;
+
+}
+
+.visible{
+    top: 0px;
+    visibility: visible;
+}
