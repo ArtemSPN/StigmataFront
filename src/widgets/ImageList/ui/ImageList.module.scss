@@ -1,0 +1,12 @@
+.imageList{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.imgWrap{
+    width: 38%;
+    height: 200px;
+    background-color: var(--overlay-color);
+    opacity: 0.4;
+}

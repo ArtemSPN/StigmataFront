@@ -3,23 +3,26 @@ import cls from './PostCard.module.scss';
 import { Avatar } from '@/shared/ui/Avatar/Avatar';
 import { Text, TextTheme } from '@/shared/ui/Text/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
+import { memo } from 'react';
+import { Post } from '@/entities/Post';
+import { Link } from 'react-router-dom';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
+import { ImageList } from '@/widgets/ImageList';
 
 interface PostCardProps {
     className?: string;
-    src?: string;
-    username: string;
-    postTitle: string;
-    postText: string; 
+    post?: Post;
+    imgArr?: string[];
 }
 
-export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
+export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => {
     const { 
         className,
-        src,
-        username,
-        postText,
-        postTitle
+        post,
+        imgArr
     } = props;
+    const {t} = useTranslation();
 
     return (
         <div className={classNames(cls.postCard, {}, [className])}>
@@ -27,30 +30,35 @@ export const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
                 <Avatar
                     className={cls.avatar}
                     // eslint-disable-next-line max-len
-                    src={src}
+                    src={post?.src}
                     alt='user logo'
                     size={50}
                 />
                 <Text
                     theme={TextTheme.PRIMARY}
-                    title={postTitle}
-                    text={username}
+                    title={post?.postTitle}
+                    text={post?.username}
                 />
             </div>
             <div className={cls.contentPost}>
                 <Text
                     theme={TextTheme.PRIMARY}
                     // eslint-disable-next-line max-len
-                    text={postText}/>
+                    text={post?.postText}/>
             </div>
+            {imgArr &&
+            <ImageList
+                className={cls.imgList}
+                imgArr={imgArr}
+            />}
             <div className={cls.btn}>
                 <Button
                     theme={ButtonTheme.OUTLINE}
                 >
-                    читать обсуждение
+                    <Link to={'/post'}>{t("читать обсуждение")}</Link>
                 </Button>
             </div>
 
         </div>
     );
-}
+});

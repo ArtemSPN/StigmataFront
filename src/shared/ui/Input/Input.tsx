@@ -1,5 +1,6 @@
 import { Mods, classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Input.module.scss';
+import { memo } from 'react';
 
 export enum InputSize {
     M = 'size_m',
@@ -14,7 +15,7 @@ interface InputProps extends  React.InputHTMLAttributes<InputProps> {
     sizeInput?: InputSize; 
 }
 
-export const Input: React.FC<InputProps> = (props: InputProps) => {
+export const Input: React.FC<InputProps> = memo((props: InputProps) => {
     const { 
         className,
         maxLength,
@@ -31,4 +32,4 @@ export const Input: React.FC<InputProps> = (props: InputProps) => {
             className={classNames(cls.input, mods, [className])}
         />
     );
-}
+});

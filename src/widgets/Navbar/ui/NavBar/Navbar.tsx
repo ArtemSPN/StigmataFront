@@ -6,14 +6,14 @@ import {ReactComponent as ArrowUp} from '@/shared/assets/arrow-up-337-svgrepo-co
 import {ReactComponent as ArrowDown} from '@/shared/assets/arrow-down-338-svgrepo-com.svg'
 
 import { Text, TextSize } from '@/shared/ui/Text/Text';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { NavList } from '../NavList/NavList';
 
 interface NavbarProps {
     className?: string;
 }
 
-export const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
+export const Navbar: React.FC<NavbarProps> = memo((props: NavbarProps) => {
     const { className } = props;
     const [isOpen, setIsOpen] = useState(false);
 
@@ -50,4 +50,4 @@ export const Navbar: React.FC<NavbarProps> = (props: NavbarProps) => {
             <NavList visible={isOpen}/>
         </div>
     );
-}
+});

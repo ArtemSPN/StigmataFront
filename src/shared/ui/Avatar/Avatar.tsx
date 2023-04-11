@@ -1,6 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Avatar.module.scss';
-import { CSSProperties, useMemo } from 'react';
+import { CSSProperties, memo, useMemo } from 'react';
 
 interface AvatarProps {
     className?: string;
@@ -9,7 +9,7 @@ interface AvatarProps {
     alt?: string | ' ';
 }
 
-export const Avatar: React.FC<AvatarProps> = (props: AvatarProps) => {
+export const Avatar: React.FC<AvatarProps> = memo((props: AvatarProps) => {
     const { 
         className,
         alt,
@@ -30,4 +30,4 @@ export const Avatar: React.FC<AvatarProps> = (props: AvatarProps) => {
             style={styles}
         />
     );
-}
+});

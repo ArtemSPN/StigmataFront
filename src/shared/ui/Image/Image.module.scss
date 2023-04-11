@@ -1,0 +1,32 @@
+.image{
+    width: 95%;
+    height: 200px;
+}
+
+.imageModal{
+    width: 100%;
+    height: 100%;
+}
+
+.imageLastWrap{
+    width: 95%;
+    background-color: var(--bg-color);
+    height: 200px;
+    position: relative;
+}
+
+.imageLast{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+}
+
+.text{
+    position: absolute;
+    z-index: 10;
+    top: 40%;
+    left: 40%;
+}
+

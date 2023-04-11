@@ -2,6 +2,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './NavList.module.scss';
 import { useTranslation } from 'react-i18next';
 import { NavItem } from '../NavItem/NavItem';
+import { memo } from 'react';
 
 interface NavListProps {
     className?: string;
@@ -9,7 +10,7 @@ interface NavListProps {
 
 }
 
-export const NavList: React.FC<NavListProps> = (props: NavListProps) => {
+export const NavList: React.FC<NavListProps> = memo((props: NavListProps) => {
     const { visible } = props;
     const {t} = useTranslation();
 
@@ -22,4 +23,4 @@ export const NavList: React.FC<NavListProps> = (props: NavListProps) => {
             <NavItem/>
         </div>
     );
-}
+});

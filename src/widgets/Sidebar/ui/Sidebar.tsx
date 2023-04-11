@@ -6,12 +6,13 @@ import { Settings } from '@/widgets/Settings';
 import { Logo } from '@/shared/ui/Logo/Logo';
 import { Navbar } from '@/widgets/Navbar';
 import { SearchPanel } from '@/widgets/SearchPanel';
+import { memo } from 'react';
 
 interface SidebarProps {
     className?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
+export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
     const { className } = props;
     const {t} = useTranslation();
 
@@ -24,8 +25,8 @@ export const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
             <SearchPanel/>
             <Navbar/>
             <Link to={'/'}>{t("Главная страница")}</Link>
-            <Link to={'/post'}>{t("Страница записей")}</Link>
+            <Link to={'/postList'}>{t("Страница записей")}</Link>
             <Settings className={classNames(cls.settings, {},[className])}/>
         </div>
     );
-}
+});

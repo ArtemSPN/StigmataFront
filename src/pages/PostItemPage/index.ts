@@ -1,0 +1,1 @@
+export { PostItemPageAsync as PostItemPage } from "./ui/PostItem.async";

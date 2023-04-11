@@ -1,11 +1,12 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Loader.module.scss';
+import { memo } from 'react';
 
 interface LoaderProps {
     className?: string;
 }
 
-export const Loader: React.FC<LoaderProps> = (props: LoaderProps) => {
+export const Loader: React.FC<LoaderProps> = memo((props: LoaderProps) => {
     const {
         className,
     } = props;
@@ -16,4 +17,4 @@ export const Loader: React.FC<LoaderProps> = (props: LoaderProps) => {
             <div className={classNames(cls['lds-facebook'], {}, [className])}><div></div><div></div><div></div></div>
         </div>
     );
-}
+});
