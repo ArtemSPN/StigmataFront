@@ -1,4 +1,3 @@
-import { Post } from "@/entities/Post"
 import { MainPage } from "@/pages/MainPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { PostItemPage } from "@/pages/PostItemPage"
@@ -14,7 +13,7 @@ export enum AppRoutes {
 
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
-    [AppRoutes.POST]: '/post',
+    [AppRoutes.POST]: '/post/',
     [AppRoutes.POST_LIST]: '/postList',
     [AppRoutes.NOT_FOUND]: '*',
 }
@@ -25,7 +24,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
         element: <MainPage/>
     },
     [AppRoutes.POST]: {
-        path: RoutePath.post,
+        path: `${RoutePath.post}:id`,
         element: <PostItemPage/>,
     },
     [AppRoutes.POST_LIST]: {

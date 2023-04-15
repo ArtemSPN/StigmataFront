@@ -13,16 +13,15 @@ import { ImageList } from '@/widgets/ImageList';
 interface PostCardProps {
     className?: string;
     post?: Post;
-    imgArr?: string[];
 }
 
 export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => {
     const { 
         className,
         post,
-        imgArr
     } = props;
     const {t} = useTranslation();
+
 
     return (
         <div className={classNames(cls.postCard, {}, [className])}>
@@ -30,32 +29,32 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
                 <Avatar
                     className={cls.avatar}
                     // eslint-disable-next-line max-len
-                    src={post?.src}
+                    src={'https://telegra.ph/file/8a0ab7869a199470720f0.jpg'}
                     alt='user logo'
                     size={50}
                 />
                 <Text
                     theme={TextTheme.PRIMARY}
-                    title={post?.postTitle}
-                    text={post?.username}
+                    title={post?.title}
+                    text={post?.author}
                 />
             </div>
             <div className={cls.contentPost}>
                 <Text
                     theme={TextTheme.PRIMARY}
                     // eslint-disable-next-line max-len
-                    text={post?.postText}/>
+                    text={post?.text}/>
             </div>
-            {imgArr &&
+            {post?.imgArr &&
             <ImageList
                 className={cls.imgList}
-                imgArr={imgArr}
+                imgArr={post?.imgArr}
             />}
             <div className={cls.btn}>
                 <Button
                     theme={ButtonTheme.OUTLINE}
                 >
-                    <Link to={'/post'}>{t("читать обсуждение")}</Link>
+                    <Link to={`/post/${post?._id}`}>{t("читать обсуждение")}</Link>
                 </Button>
             </div>
 

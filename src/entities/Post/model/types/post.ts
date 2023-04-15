@@ -1,8 +1,15 @@
 
 export interface Post {
-    id: string;
-    src: string;
-    postTitle: string;
-    postText: string;
-    username: string;
+    _id: string,
+    author: string;
+    title?: string;
+    text: string;
+    section: string;
+    imgArr: string[];
+}
+
+export interface PostsSchema {
+    isLoading: boolean;
+    error?: string;
+    data?: Post[];
 }

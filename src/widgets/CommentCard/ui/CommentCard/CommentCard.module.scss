@@ -1,0 +1,21 @@
+.postCard{
+    width: 100%;
+    border-radius: 20px;
+    padding-left: 30px;
+    margin-top: 20px;
+}
+
+.headerPost{
+    display: flex;
+    align-items: center;
+}
+
+.avatar{
+    margin-right: 20px;
+}
+
+.btn{
+    margin-top: 10px;
+    display: flex;
+    justify-content: right;
+}

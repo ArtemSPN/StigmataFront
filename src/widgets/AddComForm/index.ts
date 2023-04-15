@@ -1,0 +1,1 @@
+export {AddComForm} from "./ui/AddComForm"

@@ -13,8 +13,9 @@
 
 .app {
     background: var(--bg-color);;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
+    overflow: hidden
 }
 
 .content-page {
@@ -28,8 +29,7 @@
 }
 
 *::-webkit-scrollbar {
-    width: 12px;               /* ширина scrollbar */
-    height: 8px;
+    display: none;
 }
 
 *::-webkit-scrollbar-track {
