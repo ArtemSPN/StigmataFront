@@ -8,3 +8,10 @@
     overflow-y: scroll;
     padding-bottom: 40px;
 }
+
+.header{
+    width: 100%;
+    display: flex;
+    fill: var(--primary-color);
+    justify-content: space-between;
+}

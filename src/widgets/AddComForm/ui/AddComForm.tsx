@@ -2,6 +2,9 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './AddComForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
+import { useState } from 'react';
+import  addComment  from '../model/addComment';
+import { useParams } from 'react-router-dom';
 
 interface AddComFormProps {
     className?: string;
@@ -9,15 +12,36 @@ interface AddComFormProps {
 
 export const AddComForm: React.FC<AddComFormProps> = (props: AddComFormProps) => {
     const { className } = props;
-    const {t} = useTranslation();
+    const [value, setValue] = useState("");
+    const { id } = useParams<{ id: string }>();
+
+    const toggleAddBtn = () => {
+        addComment("user", value, id || "");
+        setValue("");
+    }
 
     return (
         <div className={classNames(cls.addComForm, {}, [className])}>
-            <textarea className={cls.textArea}/>
+            <textarea className={cls.textArea} value={value} onChange={(e) => setValue(e.target.value)}/>
             <div className={cls.btns}>
-                <Button className={cls.btnItem}>Добавить</Button>
-                <Button className={cls.btnItem}>Загрузить</Button>
-                <Button className={cls.btnItem} theme={ButtonTheme.OUTLINE_RED}>Очистить</Button>
+                <Button
+                    className={cls.btnItem} 
+                    onClick={toggleAddBtn}
+                >
+                    Добавить
+                </Button>
+                <Button 
+                    className={cls.btnItem}
+                >
+                    Загрузить
+                </Button>
+                <Button 
+                    className={cls.btnItem} 
+                    theme={ButtonTheme.OUTLINE_RED}
+                    onClick={() => setValue("")}
+                >
+                    Очистить
+                </Button>
             </div>
         </div>
     );

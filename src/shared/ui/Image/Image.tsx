@@ -50,9 +50,10 @@ export const Image: React.FC<ImageProps> = (props: ImageProps) => {
                     </div>
                 } 
             </Button>
+            {isOpen && 
             <Modal isOpen={isOpen} onClose={onClose} full={true}>
                 <img src={src} className={cls.imageModal}/>
-            </Modal>
+            </Modal>}
         </div>
     );
 }

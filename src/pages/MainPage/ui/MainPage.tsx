@@ -7,7 +7,9 @@ import { PageTitle } from '@/shared/ui/PageTitle/PageTitle';
 import { Post, fetchPostData, getPostData, getPostIsLoading } from '@/entities/Post';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
+import {ReactComponent as Format} from '@/shared/assets/format.svg'
 import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { useState } from 'react';
 
 interface MainPageProps {
     className?: string;
@@ -15,6 +17,7 @@ interface MainPageProps {
 
 const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
     const { className } = props;
+    const [full, setFull] = useState(true);
     const dispatch = useAppDispatch();
     const posts = useSelector(getPostData);
     const isLoading = useSelector(getPostIsLoading);
@@ -37,9 +40,12 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
 
     return (
         <div className={classNames(cls.mainPage, {}, [className])}>
-            <PageTitle titleArrays={["Главная страница"]}/>
+            <div className={cls.header}>
+                <PageTitle titleArrays={["Главная страница"]}/>
+                <Format onClick={() => setFull(!full)}/>
+            </div>
             {!isLoading?
-                posts.map((item: Post) => {return <PostCard post={item} key={item?.title} className={cls.postCard}/>})
+                posts.map((item: Post) => {return <PostCard post={item} key={item?.title} className={cls.postCard} full={full}/>})
                 :listSkeleton
             } 
         </div>

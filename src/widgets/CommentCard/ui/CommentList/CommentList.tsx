@@ -21,7 +21,6 @@ export const CommentList: React.FC<CommentListProps> = (props: CommentListProps)
     useInitialEffect(() => {
         dispatch(fetchCommentData(id));
     });
-
     return (
         <div className={classNames(cls.commentList, {}, [className])}>
             {!isLoading && 
