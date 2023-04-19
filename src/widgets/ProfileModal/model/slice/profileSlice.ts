@@ -1,31 +1,30 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Post, PostsSchema } from '@/entities/Post/model/types/post';
-import { fetchPostData } from '@/entities/Post/model/services/fetchPostData';
+import { User, UserSchema } from '@/entities/User/user';
+import { fetchUserData } from '@/widgets/ProfileModal/model/services/fetchUserData';
 
-const initialState: PostsSchema = {
+const initialState: UserSchema = {
     isLoading: true,
     error: undefined,
-    data: [],
 };
 
-export const postsSlice = createSlice({
-    name: 'posts',
+export const profileSlice = createSlice({
+    name: 'User',
     initialState,
     reducers: {
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchPostData.pending, (state) => {
+            .addCase(fetchUserData.pending, (state) => {
                 state.error = undefined;
             })
-            .addCase(fetchPostData.fulfilled, (
+            .addCase(fetchUserData.fulfilled, (
                 state,
-                action: PayloadAction<Post[]>,
+                action: PayloadAction<User>,
             ) => {
                 state.isLoading = false;
                 state.data = action.payload;
             })
-            .addCase(fetchPostData.rejected, (state, action) => {
+            .addCase(fetchUserData.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             })
@@ -34,5 +33,5 @@ export const postsSlice = createSlice({
 
 
 // Action creators are generated for each case reducer function
-export const { actions: postActions } = postsSlice;
-export const { reducer: postReducer } = postsSlice;
+export const { actions: profileActions } = profileSlice;
+export const { reducer: profileReducer } = profileSlice;

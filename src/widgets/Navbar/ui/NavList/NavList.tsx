@@ -3,6 +3,7 @@ import cls from './NavList.module.scss';
 import { useTranslation } from 'react-i18next';
 import { NavItem } from '../NavItem/NavItem';
 import { memo } from 'react';
+import navItemList from '@/shared/const/section';
 
 interface NavListProps {
     className?: string;
@@ -12,15 +13,10 @@ interface NavListProps {
 
 export const NavList: React.FC<NavListProps> = memo((props: NavListProps) => {
     const { visible } = props;
-    const {t} = useTranslation();
 
     return (
         <div className={classNames(cls.navList,  { [cls.visible]: visible })}>
-            <NavItem/>
-            <NavItem/>
-            <NavItem/>
-            <NavItem/>
-            <NavItem/>
+            {navItemList.map((item) => {return <NavItem title={item.title} link={item.link} key={item.link}/>})}
         </div>
     );
 });

@@ -24,7 +24,7 @@ export const CommentList: React.FC<CommentListProps> = (props: CommentListProps)
     return (
         <div className={classNames(cls.commentList, {}, [className])}>
             {!isLoading && 
-            comments.map((item: Comment, index: any) => <CommentCard comment={item} key={index}/>)
+            comments?.map((item: Comment, index: any) => <CommentCard comment={item} key={index}/>)
             }
         </div>
     );

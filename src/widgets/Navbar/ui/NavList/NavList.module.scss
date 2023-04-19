@@ -8,7 +8,8 @@
     border-right: 1px solid var(--primary-color);
     border-bottom: 1px solid var(--primary-color);
     visibility: hidden;
-
+    display: flex;
+    flex-direction: column;
     transition: .2s linear;
 
 }

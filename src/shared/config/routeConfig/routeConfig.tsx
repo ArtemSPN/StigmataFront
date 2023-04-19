@@ -14,7 +14,7 @@ export enum AppRoutes {
 export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.MAIN]: '/',
     [AppRoutes.POST]: '/post/',
-    [AppRoutes.POST_LIST]: '/postList',
+    [AppRoutes.POST_LIST]: '/postList/',
     [AppRoutes.NOT_FOUND]: '*',
 }
 
@@ -28,8 +28,8 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
         element: <PostItemPage/>,
     },
     [AppRoutes.POST_LIST]: {
-        path: RoutePath.post_list,
-        element: <PostPage />,
+        path: `${RoutePath.post_list}:sec`,
+        element: <PostPage/>,
     },
     // last
     [AppRoutes.NOT_FOUND]: {

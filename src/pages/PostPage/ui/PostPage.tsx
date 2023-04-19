@@ -1,43 +1,60 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
 import cls from './PostPage.module.scss';
-import { Text, TextAlign, TextSize, TextTheme } from '@/shared/ui/Text/Text';
-import { useState, useEffect } from 'react';
-import { Button } from '@/shared/ui/Button/Button';
+import { useEffect } from 'react';
+import { Post} from '@/entities/Post';
+import { fetchPostSectionData } from '@/pages/PostPage/model/services/fetchPostSectionData';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader';
+import { postSectionReducer } from '@/pages/PostPage/model/slice/postSectionData';
+import { getPostSectionIsLoading } from '@/pages/PostPage/model/selectors/getPostSectionIsLoading';
+import { getPostSectionData } from '@/pages/PostPage/model/selectors/getPostSectionData';
+import { PostCard } from '@/widgets/PostCard';
+import { PageTitle } from '@/shared/ui/PageTitle/PageTitle';
+import { navItem } from '@/shared/const/section';
+import { Text, TextSize } from '@/shared/ui/Text/Text';
+import { Loader } from '@/shared/ui/Loader/Loader';
 
 interface PostPageProps {
     className?: string;
 }
 
+const reducers: ReducersList = {
+    postSection: postSectionReducer,
+};
+
 const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
     const { className } = props;
-    const {t} = useTranslation();
-
-    const [error, setError] = useState(false);
-
-    const onThrow = () => setError(true);
+    const dispatch = useAppDispatch();
+    const postsSection = useSelector(getPostSectionData);
+    const isLoading = useSelector(getPostSectionIsLoading);
+    const { sec } = useParams<{ sec: string }>();
 
     useEffect(() => {
-        if (error) {
-            throw new Error();
-        }
-    }, [error]);
+        dispatch(fetchPostSectionData(sec || ""));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sec])
 
-
+    {!isLoading && console.log(postsSection)}
 
     return (
-        <div className={classNames(cls.postPage, {}, [className])}>
-            <Text
-                theme={TextTheme.PRIMARY}
-                title={t('Произошла ошибка при загрузке профиля') as string}
-                text={'Попробуйте обновить страницу'}
-                align={TextAlign.CENTER}
-                size={TextSize.XL}
-            />
-            <Button onClick={onThrow}>
-                error
-            </Button>
-        </div>
+        <DynamicModuleLoader reducers={reducers}>
+            <div className={classNames(cls.postPage, {}, [className])}>
+                <div className={cls.header}>
+                    <PageTitle titleArrays={["Обсуждения", navItem[sec]]}/>
+                </div>
+                {isLoading &&
+                <div className={cls.loaderWrap}><Loader className={cls.loader}/></div>}
+                {postsSection?.length == 0?
+                    <div className={cls.fullPage}>
+                        <Text title='В этом разделе пока нет записей' size={TextSize.XL} className={cls.text}/>
+                    </div>   
+                    :postsSection?.map((item: Post) => 
+                    {return <PostCard className={cls.postCard} post={item} key={item._id}/>})
+                }
+            </div>
+        </DynamicModuleLoader>
     );
 }
 

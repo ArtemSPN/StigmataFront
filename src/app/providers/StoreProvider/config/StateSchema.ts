@@ -8,13 +8,16 @@ import { To } from 'react-router-dom';
 import { PostsSchema } from '@/entities/Post/model/types/post';
 import { PostItemSchema } from '@/pages/PostItemPage/model/types/postItem';
 import { CommentSchema } from '@/entities/Comment/model/types/comment';
+import { PostSectionSchema } from '@/pages/PostPage/model/types/postSection';
+import { UserSchema } from '@/entities/User/user';
 
 export interface StateSchema {
     posts: PostsSchema,
     comments: CommentSchema,
-
+    user: UserSchema,
     // async
     postItem?: PostItemSchema,
+    postSection?: PostSectionSchema,
 }
 
 export type StateSchemaKey = keyof StateSchema;

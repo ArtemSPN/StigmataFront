@@ -1,7 +1,7 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ErrorPage.module.scss';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/shared/ui/Button/Button';
+import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { Text, TextAlign, TextSize, TextTheme } from '@/shared/ui/Text/Text';
 
 interface ErrorPageProps {
@@ -24,7 +24,7 @@ export const ErrorPage: React.FC<ErrorPageProps> = (props: ErrorPageProps) => {
                 align={TextAlign.CENTER}
                 size={TextSize.L}
             />
-            <Button onClick={reloadPage}>
+            <Button onClick={reloadPage} theme={ButtonTheme.OUTLINE}>
                 {t('Перезагрузить страницу')}
             </Button>
         </div>

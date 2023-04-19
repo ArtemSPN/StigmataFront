@@ -7,6 +7,8 @@ import { $api } from '@/shared/api/api';
 import { To } from 'react-router-dom';
 import { postReducer } from '@/entities/Post';
 import { commentReducer } from '@/entities/Comment/model/slice/commentSlice';
+import { useReducer } from 'react';
+import { profileReducer } from '@/widgets/ProfileModal/model/slice/profileSlice';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -16,6 +18,7 @@ export function createReduxStore(
     const rootReducers: ReducersMapObject<StateSchema> = {
         posts: postReducer,
         comments: commentReducer,
+        user: profileReducer,
         ...asyncReducers,
     };
 

@@ -6,7 +6,10 @@ import { Settings } from '@/widgets/Settings';
 import { Logo } from '@/shared/ui/Logo/Logo';
 import { Navbar } from '@/widgets/Navbar';
 import { SearchPanel } from '@/widgets/SearchPanel';
-import { memo } from 'react';
+import { memo, useState } from 'react';
+import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
+import { Modal } from '@/shared/ui/Modal/Modal';
+import { ProfileModal } from '@/widgets/ProfileModal';
 
 interface SidebarProps {
     className?: string;
@@ -14,6 +17,7 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
     const { className } = props;
+    const [open, setOpen] = useState(false);
     const {t} = useTranslation();
 
     
@@ -21,12 +25,15 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
 
     return (
         <div className={classNames(cls.sidebar, {}, [className])}>
-            <Logo/>
+            <Button theme={ButtonTheme.CLEAR} showClick={false}>
+                <Link to={""}>
+                    <Logo/>
+                </Link>
+            </Button>
             <SearchPanel/>
             <Navbar/>
-            <Link to={'/'}>{t("Главная страница")}</Link>
-            <Link to={'/postList'}>{t("Страница записей")}</Link>
             <Settings className={classNames(cls.settings, {},[className])}/>
+
         </div>
     );
 });

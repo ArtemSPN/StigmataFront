@@ -4,12 +4,14 @@ import cls from './MainPage.module.scss';
 import { PostCard } from '@/widgets/PostCard';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 import { PageTitle } from '@/shared/ui/PageTitle/PageTitle';
-import { Post, fetchPostData, getPostData, getPostIsLoading } from '@/entities/Post';
+import { Post, fetchPostData, getPostData, getPostError, getPostIsLoading } from '@/entities/Post';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import {ReactComponent as Format} from '@/shared/assets/format.svg'
 import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useState } from 'react';
+import { TextTheme, TextSize, Text } from '@/shared/ui/Text/Text';
+import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 
 interface MainPageProps {
     className?: string;
@@ -21,9 +23,11 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
     const dispatch = useAppDispatch();
     const posts = useSelector(getPostData);
     const isLoading = useSelector(getPostIsLoading);
+    const error = useSelector(getPostError);
 
     useInitialEffect(() => {
         dispatch(fetchPostData());
+        console.log(isLoading);
         console.log("eban!!!");
     });
 
@@ -42,10 +46,13 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
         <div className={classNames(cls.mainPage, {}, [className])}>
             <div className={cls.header}>
                 <PageTitle titleArrays={["Главная страница"]}/>
-                <Format onClick={() => setFull(!full)}/>
+                <Button theme={ButtonTheme.CLEAR}>
+                    <Format onClick={() => setFull(!full)}/>
+                </Button>
             </div>
+            {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
             {!isLoading?
-                posts.map((item: Post) => {return <PostCard post={item} key={item?.title} className={cls.postCard} full={full}/>})
+                posts?.map((item: Post) => {return <PostCard post={item} key={item?.title} className={cls.postCard} full={full}/>})
                 :listSkeleton
             } 
         </div>

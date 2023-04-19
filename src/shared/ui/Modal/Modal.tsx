@@ -39,6 +39,10 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
         [cls.isClosing]: isClosing,
     };
 
+    const modsModal: Mods = {
+        [cls.contentPadding]: !full
+    };
+
 
     return (
         <Portal>
@@ -49,7 +53,7 @@ export const Modal: React.FC<ModalProps> = (props: ModalProps) => {
                 ])}
             >
                 <Overlay onClick={close} />
-                <div className={classNames(cls.content, {[cls.contentPadding]: !full})}>{children}</div>
+                <div className={classNames(cls.content, modsModal)}>{children}</div>
             </div>
         </Portal>
     );

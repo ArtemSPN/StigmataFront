@@ -18,7 +18,6 @@ export const Navbar: React.FC<NavbarProps> = memo((props: NavbarProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleOpen = () => {
-        console.log("asd")
         setIsOpen(!isOpen);
     }
 

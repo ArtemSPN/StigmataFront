@@ -2,14 +2,13 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './PostItemPage.module.scss';
 import { PageTitle } from '@/shared/ui/PageTitle/PageTitle';
-import { Text, TextTheme } from '@/shared/ui/Text/Text';
+import { Text, TextSize, TextTheme } from '@/shared/ui/Text/Text';
 import { Avatar } from '@/shared/ui/Avatar/Avatar';
 import { Slider } from '@/widgets/Slider';
 import { AddComForm } from '@/widgets/AddComForm';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { fetchPostById } from '@/pages/PostItemPage/model/services/fetchPostById';
 import { getPostItem } from '@/pages/PostItemPage/model/selectors/getPostItem';
 import { DynamicModuleLoader, ReducersList } from '@/shared/lib/components/DynamicModuleLoader';
@@ -17,6 +16,9 @@ import { postItemReducer } from '@/pages/PostItemPage/model/slice/postItemSlice'
 import { Loader } from '@/shared/ui/Loader/Loader';
 import { getIsLoading } from '@/pages/PostItemPage/model/selectors/getIsLoading';
 import { CommentList } from '@/widgets/CommentCard';
+import { useEffect } from 'react';
+import { navItem } from '@/shared/const/section';
+import { getError } from '@/pages/PostItemPage/model/selectors/getError';
 
 interface PostItemPageProps {
     className?: string;
@@ -32,15 +34,18 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
     const dispatch = useAppDispatch();
     const post = useSelector(getPostItem);
     const isLoading = useSelector(getIsLoading);
+    const error = useSelector(getError)
     const { id } = useParams<{ id: string }>();
-    useInitialEffect(() => {
+
+    useEffect(() => {
         dispatch(fetchPostById(id));
-    });
+    }, [dispatch, id])
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount> 
             <div className={classNames(cls.postItemPage, {}, [className])}>
-                {!isLoading && <PageTitle titleArrays={["Обсуждение", post?.section || " ", post?.title  || " "]}/>}
+                {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
+                {!isLoading && !error && <PageTitle titleArrays={["Обсуждение", navItem[post?.section], post?.title  || " "]}/>}
                 {!isLoading?
                     <div className={cls.contentWrap}>
                         <div className={cls.headerPost}>
