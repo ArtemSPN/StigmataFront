@@ -23,7 +23,7 @@ export const Settings: React.FC<SettingsProps> = memo((props: SettingsProps) => 
             <ThemeSwitcher/>
             {open && 
             <Modal isOpen={open} onClose={() => setOpen(false)}>
-                <ProfileModal/>
+                <ProfileModal onClose={() => setOpen(false)}/>
             </Modal>}
         </div>
     );

@@ -10,6 +10,8 @@ import { memo, useState } from 'react';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { Modal } from '@/shared/ui/Modal/Modal';
 import { ProfileModal } from '@/widgets/ProfileModal';
+import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
+import { useSelector } from 'react-redux';
 
 interface SidebarProps {
     className?: string;
@@ -17,11 +19,12 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
     const { className } = props;
-    const [open, setOpen] = useState(false);
-    const {t} = useTranslation();
+    const user = useSelector(getProfileData);
 
-    
-
+    // сбрасывается профиль при перезагрузке страницы!!!!!
+    // if(user == undefined && window.localStorage.getItem("user")){
+    //
+    // }
 
     return (
         <div className={classNames(cls.sidebar, {}, [className])}>
@@ -31,9 +34,13 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
                 </Link>
             </Button>
             <SearchPanel/>
+            {user &&   
+                <Button className={cls.addPost}>
+                    <Link to={"/createPost"}>Добавить запись</Link>
+                </Button>
+            }
             <Navbar/>
             <Settings className={classNames(cls.settings, {},[className])}/>
-
         </div>
     );
 });

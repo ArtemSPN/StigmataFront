@@ -1,0 +1,1 @@
+export {AddPostPageAsync as AddPostPage} from  "./ui/AddPostPage.async";

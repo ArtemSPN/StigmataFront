@@ -22,7 +22,7 @@ export const fetchUserData = createAsyncThunk<
                 return response.data?.user;
             } catch (e) {
                 console.log(e);
-                return rejectWithValue('error');
+                return rejectWithValue('Неверный логин или пароль');
             }
         },
     );

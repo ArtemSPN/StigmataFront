@@ -11,6 +11,12 @@ export const profileSlice = createSlice({
     name: 'User',
     initialState,
     reducers: {
+        removeProfile: (state) => {
+            state.data = undefined;
+        }
+        // updateProfile: (state, action: PayloadAction<User>) => {
+
+        // },
     },
     extraReducers: (builder) => {
         builder

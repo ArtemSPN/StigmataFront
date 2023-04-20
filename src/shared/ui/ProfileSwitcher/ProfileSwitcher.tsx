@@ -5,10 +5,6 @@ import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { Avatar } from '@/shared/ui/Avatar/Avatar';
 import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
 import { useSelector } from 'react-redux';
-import { fetchPostById } from '@/pages/PostItemPage/model/services/fetchPostById';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useEffect } from 'react';
-
 
 interface ProfileSwitcherProps {
     className?: string;
@@ -17,6 +13,7 @@ interface ProfileSwitcherProps {
 
 export const ProfileSwitcher: React.FC<ProfileSwitcherProps> = (props: ProfileSwitcherProps) => {
     const { className, onClick } = props;
+    const user = useSelector(getProfileData);
 
     return (
         <Button 
@@ -26,7 +23,7 @@ export const ProfileSwitcher: React.FC<ProfileSwitcherProps> = (props: ProfileSw
         >
             {window.localStorage.getItem("user") == undefined
                 ?<UserIcon/>
-                :<Avatar src={window.localStorage.getItem("avatar") as string} size={50}/>}
+                :<Avatar src={user?.link} size={50}/>}
         </Button>
     );
 }
