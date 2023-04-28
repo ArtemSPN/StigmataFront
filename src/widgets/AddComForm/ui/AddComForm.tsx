@@ -14,6 +14,7 @@ export const AddComForm: React.FC<AddComFormProps> = (props: AddComFormProps) =>
     const { className } = props;
     const [value, setValue] = useState("");
     const { id } = useParams<{ id: string }>();
+    const {t} = useTranslation();
 
     const toggleAddBtn = () => {
         addComment("user", value, id || "");
@@ -28,19 +29,19 @@ export const AddComForm: React.FC<AddComFormProps> = (props: AddComFormProps) =>
                     className={cls.btnItem} 
                     onClick={toggleAddBtn}
                 >
-                    Добавить
+                    {t("Добавить")}
                 </Button>
                 <Button 
                     className={cls.btnItem}
                 >
-                    Загрузить
+                    {t("Загрузить")} 
                 </Button>
                 <Button 
                     className={cls.btnItem} 
                     theme={ButtonTheme.OUTLINE_RED}
                     onClick={() => setValue("")}
                 >
-                    Очистить
+                    {t("Очистить")} 
                 </Button>
             </div>
         </div>

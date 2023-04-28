@@ -8,6 +8,7 @@ import { Text, TextSize, TextTheme } from '@/shared/ui/Text/Text';
 import navItemList, { navItem } from '@/shared/const/section';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import axios from 'axios';
+import jwt_decode from "jwt-decode";
 import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
 import { useSelector } from 'react-redux';
 import { User } from '@/entities/User/user';
@@ -18,7 +19,14 @@ interface AddPostPageProps {
 
 const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
     const { className } = props;
-    const user = useSelector(getProfileData)?.username;
+    let user = useSelector(getProfileData)?.username;
+
+
+    if(window.localStorage.getItem("user")){
+        user = jwt_decode(window.localStorage.getItem("user") || "")?.username;
+    }
+
+
     const [value, setValue] = useState("");
     const [title, setTitle] = useState("");
     const [section, setSection] = useState("");
@@ -73,9 +81,9 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
 
     return (
         <div className={classNames(cls.addPostPage, {}, [className])}>
-            <PageTitle titleArrays={["Добавление записи"]}/>
+            <PageTitle titleArrays={[t('Добавление записи')]}/>
             <div className={cls.head}>
-                <Text title='Cодержание записи:'
+                <Text title={t('Cодержание записи:') || " "}
                     size={TextSize.XL} 
                     className={classNames(cls.text)}
                 />
@@ -99,7 +107,7 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                 onChange={(e) => setValue(e.target.value)}
                 className={classNames(cls.textArea, modsText)}
             />
-            <Text title='Заголовок записи:' size={TextSize.XL} className={cls.text}/>
+            <Text title={t('Заголовок записи:') || " "} size={TextSize.XL} className={cls.text}/>
             <Input 
                 sizeInput={InputSize.L}
                 maxLength={100}
@@ -110,8 +118,8 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
             />
             {(errorText || errorTitle) && 
             <Text 
-                title={`Заполните корректно поля ввода. 
-                ${errorText?"Содержание записи не меньше 15 символов":"Заголовок записи не меньше 6 символов"}`
+                title={`${t('Заполните корректно поля ввода. ')}
+                ${errorText?t("Содержание записи не меньше 15 символов"):t("Заголовок записи не меньше 6 символов")}`
                 } 
                 theme={TextTheme.ERROR}
             />}
@@ -120,19 +128,19 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                     className={cls.btnItem} 
                     onClick={toggleAddBtn}
                 >
-                    Добавить
+                    {t("Добавить")}
                 </Button>
                 <Button 
                     className={cls.btnItem}
                 >
-                    Загрузить
+                    {t("Загрузить")}
                 </Button>
                 <Button 
                     className={cls.btnItem} 
                     theme={ButtonTheme.OUTLINE_RED}
                     onClick={clearAll}
                 >
-                    Очистить все
+                    {t("Очистить")}
                 </Button>
             </div>
         </div>
@@ -140,3 +148,4 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
 }
 
 export default AddPostPage;
+

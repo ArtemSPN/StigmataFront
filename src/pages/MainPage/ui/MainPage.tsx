@@ -12,12 +12,14 @@ import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitial
 import { useState } from 'react';
 import { TextTheme, TextSize, Text } from '@/shared/ui/Text/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
+import { useTranslation } from 'react-i18next';
 
 interface MainPageProps {
     className?: string;
 }
 
 const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
+    const {t} = useTranslation();
     const { className } = props;
     const [full, setFull] = useState(true);
     const dispatch = useAppDispatch();
@@ -45,7 +47,7 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
     return (
         <div className={classNames(cls.mainPage, {}, [className])}>
             <div className={cls.header}>
-                <PageTitle titleArrays={["Главная страница"]}/>
+                <PageTitle titleArrays={[t("Главная страница")]}/>
                 <Button theme={ButtonTheme.CLEAR}>
                     <Format onClick={() => setFull(!full)}/>
                 </Button>

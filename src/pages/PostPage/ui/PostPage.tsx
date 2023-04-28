@@ -15,6 +15,7 @@ import { PageTitle } from '@/shared/ui/PageTitle/PageTitle';
 import { navItem } from '@/shared/const/section';
 import { Text, TextSize } from '@/shared/ui/Text/Text';
 import { Loader } from '@/shared/ui/Loader/Loader';
+import { useTranslation } from 'react-i18next';
 
 interface PostPageProps {
     className?: string;
@@ -26,6 +27,7 @@ const reducers: ReducersList = {
 
 const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
     const { className } = props;
+    const {t} = useTranslation();
     const dispatch = useAppDispatch();
     const postsSection = useSelector(getPostSectionData);
     const isLoading = useSelector(getPostSectionIsLoading);
@@ -39,14 +41,14 @@ const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
     {!isLoading && console.log(postsSection)}
 
     return (
-        <DynamicModuleLoader reducers={reducers}>
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <div className={classNames(cls.postPage, {}, [className])}>
                 <div className={cls.header}>
-                    <PageTitle titleArrays={["Обсуждения", navItem[sec]]}/>
+                    <PageTitle titleArrays={[t("Обсуждение"), navItem[sec]]}/>
                 </div>
                 {isLoading &&
                 <div className={cls.loaderWrap}><Loader className={cls.loader}/></div>}
-                {postsSection?.length == 0?
+                {!isLoading && postsSection?.length == 0?
                     <div className={cls.fullPage}>
                         <Text title='В этом разделе пока нет записей' size={TextSize.XL} className={cls.text}/>
                     </div>   

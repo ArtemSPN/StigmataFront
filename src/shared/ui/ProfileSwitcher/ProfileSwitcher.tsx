@@ -5,6 +5,9 @@ import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { Avatar } from '@/shared/ui/Avatar/Avatar';
 import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
 import { useSelector } from 'react-redux';
+import jwt_decode from "jwt-decode";
+import { User } from '@/entities/User/user';
+import { useState } from 'react';
 
 interface ProfileSwitcherProps {
     className?: string;
@@ -13,7 +16,12 @@ interface ProfileSwitcherProps {
 
 export const ProfileSwitcher: React.FC<ProfileSwitcherProps> = (props: ProfileSwitcherProps) => {
     const { className, onClick } = props;
-    const user = useSelector(getProfileData);
+    let user = useSelector(getProfileData);
+
+    if(window.localStorage.getItem("user")){
+        user = jwt_decode(window.localStorage.getItem("user") || "");
+        console.log(user);
+    }
 
     return (
         <Button 

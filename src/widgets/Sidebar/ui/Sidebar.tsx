@@ -1,17 +1,17 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Sidebar.module.scss';
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Settings } from '@/widgets/Settings';
 import { Logo } from '@/shared/ui/Logo/Logo';
 import { Navbar } from '@/widgets/Navbar';
 import { SearchPanel } from '@/widgets/SearchPanel';
-import { memo, useState } from 'react';
+import { memo} from 'react';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
-import { Modal } from '@/shared/ui/Modal/Modal';
-import { ProfileModal } from '@/widgets/ProfileModal';
 import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
 import { useSelector } from 'react-redux';
+import jwt_decode from "jwt-decode";
+import { useTranslation } from 'react-i18next';
+
 
 interface SidebarProps {
     className?: string;
@@ -19,12 +19,13 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
     const { className } = props;
-    const user = useSelector(getProfileData);
+    let user = useSelector(getProfileData);
+    const {t} = useTranslation();
 
-    // сбрасывается профиль при перезагрузке страницы!!!!!
-    // if(user == undefined && window.localStorage.getItem("user")){
-    //
-    // }
+    if(window.localStorage.getItem("user")){
+        user = jwt_decode(window.localStorage.getItem("user") || "");
+    }
+    console.log(user);
 
     return (
         <div className={classNames(cls.sidebar, {}, [className])}>
@@ -36,7 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
             <SearchPanel/>
             {user &&   
                 <Button className={cls.addPost}>
-                    <Link to={"/createPost"}>Добавить запись</Link>
+                    <Link to={"/createPost"}>{t("Добавить запись")}</Link>
                 </Button>
             }
             <Navbar/>
@@ -44,3 +45,4 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
         </div>
     );
 });
+

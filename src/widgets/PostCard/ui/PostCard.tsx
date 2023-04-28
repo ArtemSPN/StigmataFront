@@ -6,7 +6,6 @@ import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { memo } from 'react';
 import { Post } from '@/entities/Post';
 import { Link } from 'react-router-dom';
-import { t } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { ImageList } from '@/widgets/ImageList';
 
@@ -47,7 +46,7 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
                     <Button
                         theme={ButtonTheme.OUTLINE}
                     >
-                        <Link to={`/post/${post?._id}`}>{t("читать обсуждение")}</Link>
+                        <Link to={`/post/${post?._id}`}>{t("Читать обсуждение")}</Link>
                     </Button>
                 </div>
                 }
@@ -70,7 +69,7 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
                     <Button
                         theme={ButtonTheme.OUTLINE}
                     >
-                        <Link to={`/post/${post?._id}`}>{t("читать обсуждение")}</Link>
+                        <Link to={`/post/${post?._id}`}>{t("Читать обсуждение")}</Link>
                     </Button>
                 </div>
             </div>

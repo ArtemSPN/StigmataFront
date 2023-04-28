@@ -37,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = memo((props: NavbarProps) => {
                         <Text
                             size={TextSize.M}
                             className={cls.navBtnText}
-                            title={t("панель навигации") as string}
+                            title={t("Панель навигации") as string}
                         />
                         {isOpen === true?
                             <ArrowUp className={cls.arrow}/>

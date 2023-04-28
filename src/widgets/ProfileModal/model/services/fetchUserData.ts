@@ -13,11 +13,10 @@ export const fetchUserData = createAsyncThunk<
 
             try {
                 const response = await extra.api.get<User>(`/user/${username}/${pas}`);
-                console.log(username + " " + pas);
-                console.log(response);
                 if (!response.data) {
                     throw new Error();
                 }
+                window.localStorage.setItem("user", response.data?.token);
 
                 return response.data?.user;
             } catch (e) {

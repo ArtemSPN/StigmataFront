@@ -12,6 +12,11 @@ export const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
+        searchPost: (state, action) => {
+            console.log(action);
+            console.log(state.data?.posts.filter((item: Post) => item.title.includes(action.payload.text)))
+            state.data.posts = state.data?.posts.filter((item: Post) => item.title.includes(action.payload.text));
+        }
     },
     extraReducers: (builder) => {
         builder

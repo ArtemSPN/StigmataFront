@@ -2,7 +2,7 @@
 export interface Post {
     _id: string,
     author: string;
-    title?: string;
+    title: string;
     text: string;
     section: string;
     imgArr: string[];

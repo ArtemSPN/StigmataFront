@@ -13,7 +13,6 @@ export const LangSwitcher: React.FC<LangSwitcherProps> = memo((props: LangSwitch
     const [lang, setLang] = useState("Ru");
 
     const toggle = () => {
-        console.log("PIZDAAAAAAAAAAA")
         i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru');
         setLang(i18n.language === 'ru' ? 'En' : 'Ru');
     };

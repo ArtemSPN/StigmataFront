@@ -13,6 +13,11 @@ export const postSectionSlice = createSlice({
     name: 'postSection',
     initialState,
     reducers: {
+        searchPost: (state, action) => {
+            console.log(action);
+            console.log(state.data?.filter((item) => item.title.includes(action.payload.text)))
+            state.data = state.data?.filter((item) => item.title.includes(action.payload.text));
+        }
     },
     extraReducers: (builder) => {
         builder

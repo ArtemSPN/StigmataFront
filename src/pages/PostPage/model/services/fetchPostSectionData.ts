@@ -7,7 +7,7 @@ export const fetchPostSectionData = createAsyncThunk<
     string,
     ThunkConfig<string>
     >(
-        'post/fetchPostData',
+        'post/fetchPostSectionData',
         async (sec, thunkApi) => {
             const { extra, rejectWithValue } = thunkApi;
 

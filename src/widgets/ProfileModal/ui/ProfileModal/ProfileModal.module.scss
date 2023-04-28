@@ -1,0 +1,24 @@
+.profileModal{
+    width: 400px;
+}
+
+.inputZone{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+}
+
+.input{
+    margin-top: 5px;
+}
+
+.btnZone{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.error{
+    margin-top: 10px;
+}

@@ -19,6 +19,7 @@ import { CommentList } from '@/widgets/CommentCard';
 import { useEffect } from 'react';
 import { navItem } from '@/shared/const/section';
 import { getError } from '@/pages/PostItemPage/model/selectors/getError';
+import { useTranslation } from 'react-i18next';
 
 interface PostItemPageProps {
     className?: string;
@@ -36,6 +37,7 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
     const isLoading = useSelector(getIsLoading);
     const error = useSelector(getError)
     const { id } = useParams<{ id: string }>();
+    const {t} = useTranslation();
 
     useEffect(() => {
         dispatch(fetchPostById(id));
@@ -45,7 +47,7 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount> 
             <div className={classNames(cls.postItemPage, {}, [className])}>
                 {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
-                {!isLoading && !error && <PageTitle titleArrays={["Обсуждение", navItem[post?.section], post?.title  || " "]}/>}
+                {!isLoading && !error && <PageTitle titleArrays={[t("Обсуждение"), navItem[post?.section], post?.title  || " "]}/>}
                 {!isLoading?
                     <div className={cls.contentWrap}>
                         <div className={cls.headerPost}>
