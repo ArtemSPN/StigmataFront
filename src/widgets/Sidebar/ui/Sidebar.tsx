@@ -36,9 +36,11 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
             </Button>
             <SearchPanel/>
             {user &&   
-                <Button className={cls.addPost}>
-                    <Link to={"/createPost"}>{t("Добавить запись")}</Link>
+            <Link to={"/createPost"} className={cls.addPost}>
+                <Button className={cls.addPostBtn}>
+                    {t("Добавить запись")}    
                 </Button>
+            </Link>
             }
             <Navbar/>
             <Settings className={classNames(cls.settings, {},[className])}/>

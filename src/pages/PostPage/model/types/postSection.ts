@@ -4,4 +4,5 @@ export interface PostSectionSchema {
     isLoading: boolean;
     error?: string;
     data?: Post[];
+    page: number;
 }

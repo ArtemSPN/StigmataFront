@@ -2,6 +2,7 @@
 export interface Post {
     _id: string,
     author: string;
+    authorUrl: string;
     title: string;
     text: string;
     section: string;

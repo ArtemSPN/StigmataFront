@@ -6,6 +6,14 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ImageList } from '@/widgets/ImageList';
 import { Comment } from '@/entities/Comment';
+import jwt_decode from "jwt-decode";
+import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
+import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
+import { useSelector } from 'react-redux';
+import {ReactComponent as DeleteIcon} from '@/shared/assets/delete.svg'
+import axios from 'axios';
+
+
 
 interface CommentCardProps {
     className?: string;
@@ -19,23 +27,41 @@ export const CommentCard: React.FC<CommentCardProps> = memo((props: CommentCardP
         comment,
         imgArr
     } = props;
+    let user = useSelector(getProfileData);
     const {t} = useTranslation();
+
+    if(window.localStorage.getItem("user")){
+        user = jwt_decode(window.localStorage.getItem("user") || "");
+    }
+
+
+    const removeCom = async () => {
+        await axios.get(`http://localhost:4444/commentRemove/${comment?._id}`)
+    }
+
 
     return (
         <div className={classNames(cls.postCard, {}, [className])}>
-            <div className={cls.headerPost}>
-                <Avatar
-                    className={cls.avatar}
-                    // eslint-disable-next-line max-len
-                    src={"https://catherineasquithgallery.com/uploads/posts/2023-02/1676647959_catherineasquithgallery-com-p-emodzi-na-zelenom-fone-231.jpg"}
-                    alt='user logo'
-                    size={50}
-                />
-                <Text
-                    theme={TextTheme.PRIMARY}
-                    title={comment?.author}
-                    size={TextSize.L}
-                />
+            <div className={cls.headerPostWrap}>
+                <div className={cls.headerPost}>
+                    <Avatar
+                        className={cls.avatar}
+                        // eslint-disable-next-line max-len
+                        src={comment?.authorUrl}
+                        alt='user logo'
+                        size={50}
+                    />
+                    <Text
+                        theme={TextTheme.PRIMARY}
+                        title={comment?.author}
+                        size={TextSize.L}
+                    />
+                </div>
+                {user?.role == "admin" &&
+                <Button theme={ButtonTheme.CLEAR} className={cls.deleteBtn} onClick={removeCom}>
+                    <DeleteIcon/>
+                </Button>
+                }
             </div>
             <div className={cls.contentPost}>
                 <Text

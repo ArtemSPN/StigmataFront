@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { TextTheme, TextSize, Text } from '@/shared/ui/Text/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
+import { Page } from '@/shared/ui/Page/Page';
 
 interface MainPageProps {
     className?: string;
@@ -30,7 +31,6 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
     useInitialEffect(() => {
         dispatch(fetchPostData());
         console.log(isLoading);
-        console.log("eban!!!");
     });
 
     //if(!isLoading) posts.map((item: Post) => console.log(item));
@@ -41,23 +41,24 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
         <Skeleton className={cls.skeleton} width="100%" height={250} border={20} key={3}/>,
         <Skeleton className={cls.skeleton} width="100%" height={250} border={20} key={4}/>,
         <Skeleton className={cls.skeleton} width="100%" height={250} border={20} key={5}/>,
-
     ]
 
     return (
-        <div className={classNames(cls.mainPage, {}, [className])}>
-            <div className={cls.header}>
-                <PageTitle titleArrays={[t("Главная страница")]}/>
-                <Button theme={ButtonTheme.CLEAR}>
-                    <Format onClick={() => setFull(!full)}/>
-                </Button>
+        <Page>
+            <div className={classNames(cls.mainPage, {}, [className])}>
+                <div className={cls.header}>
+                    <PageTitle titleArrays={[t("Главная страница")]}/>
+                    <Button theme={ButtonTheme.CLEAR}>
+                        <Format onClick={() => setFull(!full)}/>
+                    </Button>
+                </div>
+                {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
+                {!isLoading?
+                    posts?.map((item: Post) => {return <PostCard post={item} key={item?.title} className={cls.postCard} full={full}/>})
+                    :listSkeleton
+                } 
             </div>
-            {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
-            {!isLoading?
-                posts?.map((item: Post) => {return <PostCard post={item} key={item?.title} className={cls.postCard} full={full}/>})
-                :listSkeleton
-            } 
-        </div>
+        </Page>
     );
 }
 

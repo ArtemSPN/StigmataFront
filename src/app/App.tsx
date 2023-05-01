@@ -11,9 +11,7 @@ function App() {
     return (
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback={""}>
-                <div className="content-page">
-                    <AppRouter />
-                </div>
+                <AppRouter />
                 <Sidebar />
             </Suspense>
         </div>

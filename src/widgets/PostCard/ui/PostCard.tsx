@@ -8,6 +8,13 @@ import { Post } from '@/entities/Post';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ImageList } from '@/widgets/ImageList';
+import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
+import { useSelector } from 'react-redux';
+import jwt_decode from "jwt-decode";
+import {ReactComponent as DeleteIcon} from '@/shared/assets/delete.svg'
+import axios from 'axios';
+
+
 
 interface PostCardProps {
     className?: string;
@@ -21,7 +28,17 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
         post,
         full = true,
     } = props;
+    let user = useSelector(getProfileData);
     const {t} = useTranslation();
+
+    const removePost = async () => {
+        await axios.get(`http://localhost:4444/postRemove/${post?._id}`)
+    }
+
+
+    if(window.localStorage.getItem("user")){
+        user = jwt_decode(window.localStorage.getItem("user") || "");
+    }
 
 
     return (
@@ -31,7 +48,7 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
                     <Avatar
                         className={cls.avatar}
                         // eslint-disable-next-line max-len
-                        src={'https://telegra.ph/file/8a0ab7869a199470720f0.jpg'}
+                        src={post?.authorUrl}
                         alt='user logo'
                         size={50}
                     />
@@ -41,6 +58,11 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
                         text={post?.author}
                     />
                 </div>
+                {user?.role == "admin" &&
+                    <Button theme={ButtonTheme.CLEAR} className={cls.deleteBtn} onClick={removePost}>
+                        <DeleteIcon/>
+                    </Button>
+                }
                 {!full &&
                 <div className={cls.btnNF}>
                     <Button

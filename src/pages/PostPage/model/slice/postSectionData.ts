@@ -7,6 +7,7 @@ const initialState: PostSectionSchema = {
     isLoading: true,
     error: undefined,
     data: [],
+    page: 1,
 };
 
 export const postSectionSlice = createSlice({
@@ -17,7 +18,16 @@ export const postSectionSlice = createSlice({
             console.log(action);
             console.log(state.data?.filter((item) => item.title.includes(action.payload.text)))
             state.data = state.data?.filter((item) => item.title.includes(action.payload.text));
-        }
+        },
+        setPage: (state, action: PayloadAction<number>) => {
+            state.page = action.payload;
+        },
+        // addPost: (state, action) => {
+        //     state.data = {
+        //         ...state.data,
+        //         action.payload
+        //     };
+        // }
     },
     extraReducers: (builder) => {
         builder

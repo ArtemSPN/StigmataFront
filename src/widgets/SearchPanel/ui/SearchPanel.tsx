@@ -3,13 +3,16 @@ import cls from './SearchPanel.module.scss';
 import { Input } from '@/shared/ui/Input/Input';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button/Button';
 import {ReactComponent as Loop} from '@/shared/assets/loop-svgrepo-com.svg'
-import { memo, useState } from 'react';
+import { ChangeEvent, memo, useState } from 'react';
 import { searchPost } from '@/widgets/SearchPanel/model/searchPost';
 import { getPostSectionData } from '@/pages/PostPage/model/selectors/getPostSectionData';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
-import { getPostData, postActions } from '@/entities/Post';
+import { fetchPostData, getPostData, postActions } from '@/entities/Post';
 import { postSectionActions } from '@/pages/PostPage/model/slice/postSectionData';
+import { fetchPostSectionData } from '@/pages/PostPage/model/services/fetchPostSectionData';
+import { useParams } from 'react-router-dom';
+import { getPostSectionPage } from '@/pages/PostPage/model/selectors/getPostSectionPage';
 
 interface SearchPanelProps {
     className?: string;
@@ -19,8 +22,8 @@ export const SearchPanel: React.FC<SearchPanelProps> = memo((props: SearchPanelP
     const { className } = props;
     const [text, setText] = useState("");
     const dispatch = useAppDispatch();
-    const postsSection = useSelector(getPostSectionData);
-    const postsMain = useSelector(getPostData);
+    const page = useSelector(getPostSectionPage) || 1;
+
 
     const link = window.location.href.split("/")[4];
 
@@ -32,13 +35,23 @@ export const SearchPanel: React.FC<SearchPanelProps> = memo((props: SearchPanelP
         }
     }
 
+
+    const onChangeSearch = (e: ChangeEvent<HTMLInputElement>) => {
+        setText(e.target.value)
+        console.log(link);         
+        if(e.target.value == "")
+            link
+                ?dispatch(fetchPostSectionData({sec: link, page}))
+                :dispatch(fetchPostData());     
+    }
+
     return (
         <div className={cls.searchField}>
             <Input
                 maxLength={50}
                 className={cls.inputSearch}
                 value={text}
-                onChange={(e) => {setText(e.target.value)}}
+                onChange={onChangeSearch}
             />
             <Button 
                 theme={ButtonTheme.OUTLINE} square 

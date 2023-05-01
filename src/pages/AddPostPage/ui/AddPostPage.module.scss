@@ -9,7 +9,7 @@
     height: 50%;
     resize: none;
     padding: 5px;
-    border: 3px double var(--primary-color);
+    border: 3px solid var(--primary-color);
 }
 
 .input{
@@ -27,7 +27,7 @@
 
 .select{
     font: var(--font-l);
-    border: 3px double var(--primary-color);
+    border: 3px solid var(--primary-color);
 
 }
 

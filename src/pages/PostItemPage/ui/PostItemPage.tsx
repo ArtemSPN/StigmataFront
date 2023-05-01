@@ -20,6 +20,7 @@ import { useEffect } from 'react';
 import { navItem } from '@/shared/const/section';
 import { getError } from '@/pages/PostItemPage/model/selectors/getError';
 import { useTranslation } from 'react-i18next';
+import { Page } from '@/shared/ui/Page/Page';
 
 interface PostItemPageProps {
     className?: string;
@@ -44,38 +45,40 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
     }, [dispatch, id])
 
     return (
-        <DynamicModuleLoader reducers={reducers} removeAfterUnmount> 
-            <div className={classNames(cls.postItemPage, {}, [className])}>
-                {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
-                {!isLoading && !error && <PageTitle titleArrays={[t("Обсуждение"), navItem[post?.section], post?.title  || " "]}/>}
-                {!isLoading?
-                    <div className={cls.contentWrap}>
-                        <div className={cls.headerPost}>
-                            <Avatar
-                                className={cls.avatar}
-                                // eslint-disable-next-line max-len
-                                src={"https://cdn.dribbble.com/users/130163/screenshots/6209150/twitch-avatar.png"}
-                                alt='user logo'
-                                size={50}
-                            />
+        <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+            <Page>
+                <div className={classNames(cls.postItemPage, {}, [className])}>
+                    {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
+                    {!isLoading && !error && <PageTitle titleArrays={[t("Обсуждение"), navItem[post?.section], post?.title  || " "]}/>}
+                    {!isLoading?
+                        <div className={cls.contentWrap}>
+                            <div className={cls.headerPost}>
+                                <Avatar
+                                    className={cls.avatar}
+                                    // eslint-disable-next-line max-len
+                                    src={post?.authorUrl}
+                                    alt='user logo'
+                                    size={50}
+                                />
+                                <Text
+                                    theme={TextTheme.PRIMARY}
+                                    title={post?.title}
+                                    text={post?.author}
+                                />
+                            </div>
                             <Text
-                                theme={TextTheme.PRIMARY}
-                                title={post?.title}
-                                text={post?.author}
+                                text={post?.text}
                             />
+                            {post && post?.imgArr.length > 0 &&
+                            <Slider className={cls.slider} imgArr={post.imgArr}/>
+                            }
                         </div>
-                        <Text
-                            text={post?.text}
-                        />
-                        {post && post?.imgArr.length > 0 &&
-                        <Slider className={cls.slider} imgArr={post.imgArr}/>
-                        }
-                    </div>
-                    :<div className={cls.loaderWrap}><Loader className={cls.loader}/></div>
-                }
-                <CommentList id={id || ""}/>
-                <AddComForm/>
-            </div>
+                        :<div className={cls.loaderWrap}><Loader className={cls.loader}/></div>
+                    }
+                    <CommentList id={id || ""}/>
+                    <AddComForm/>
+                </div>
+            </Page>
         </DynamicModuleLoader>
     );
 }

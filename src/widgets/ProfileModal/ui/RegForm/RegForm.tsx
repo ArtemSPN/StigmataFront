@@ -1,15 +1,11 @@
-import { classNames } from '@/shared/lib/classNames/classNames';
+import { Mods, classNames } from '@/shared/lib/classNames/classNames';
 import cls from './RegForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui/Button/Button';
 import { Input } from '@/shared/ui/Input/Input';
 import { Text, TextSize, TextTheme } from '@/shared/ui/Text/Text';
-import { error } from 'console';
 import { useState } from 'react';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getProfileError } from '@/widgets/ProfileModal/model/selectors/getProfileError';
-import { getProfileIsLoading } from '@/widgets/ProfileModal/model/selectors/getProfileIsLoading';
-import { useSelector } from 'react-redux';
 import { fetchUserData } from '@/widgets/ProfileModal/model/services/fetchUserData';
 import axios from 'axios';
 
@@ -32,45 +28,50 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
     const [link, setLink] = useState("");
     const [password, setPassword] = useState("");
 
+    const [errUsm, setErrUsm] = useState(false);
+    const [errLink, setErrLink] = useState(false);
+    const [errPas, setErrPas] = useState(false);
+
+    const usernameMods: Mods = {
+        [cls.errorInput]: errUsm
+    }
+
+    const passwordMods: Mods = {
+        [cls.errorInput]: errPas
+    }
+
+    const linkMods: Mods = {
+        [cls.errorInput]: errLink
+    }
 
     const reg = async () => {
-        await axios.post("http://localhost:4444/createUser", {
-            username,
-            password,
-            link,
-            role: "user"
-        }).then((res) => {
-            console.log(res.data);
-            dispatch(fetchUserData([username,password])).then(() => {
-                setPassword("");
-                setUsername("");
-                setError(false);
-                onClose();
+        if(username.length == 0 || link.length == 0 || password.length == 0){
+            setErrUsm(username.length == 0);
+            setErrLink(link.length == 0);
+            setErrPas(password.length == 0);
+        }
+        else{
+            setErrUsm(false);
+            setErrLink(false);
+            setErrPas(false);
+            await axios.post("http://localhost:4444/createUser", {
+                username,
+                password,
+                link,
+                role: "user"
+            }).then((res) => {
+                console.log(res.data);
+                dispatch(fetchUserData([username,password])).then(() => {
+                    setPassword("");
+                    setUsername("");
+                    setError(false);
+                    onClose();
+                });
+            }).catch((e) => {
+                console.log(e);
+                setError(true);  
             });
-        }).catch((e) => {
-            console.log(e);
-            setError(true);  
-        });
-        // const r = await register(username,password,link).then((res) => {
-        //     console.log(res);
-        // }).catch((e) => {
-        //     console.log(e);
-        // });
-        // console.log(r)
-        
-        // .then((res) => {
-        //     console.log(res);
-        //     if(!res){
-        //     }
-        //     else{
-        //         dispatch(fetchUserData([username,password])).then(() => {
-        //             setPassword("");
-        //             setUsername("");
-        //             setError(false);
-        //             onClose();
-        //         });
-        //     }
-        // });
+        }
     }
 
     return (
@@ -79,21 +80,21 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
             <div className={cls.inputZone}>
                 <Text title={t('Введите имя пользователя') || " "}/>
                 <Input 
-                    className={cls.input} 
+                    className={classNames(cls.input, usernameMods)} 
                     placeholder='username' 
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <Text title={t('Введите ссылку на аватарку') || " "}/>
                 <Input 
-                    className={cls.input} 
+                    className={classNames(cls.input, linkMods)}  
                     placeholder='avatar' 
                     value={link}
                     onChange={(e) => setLink(e.target.value)}
                 />
                 <Text title={t('Введите пароль') || " "}/>
                 <Input
-                    className={cls.input}
+                    className={classNames(cls.input, passwordMods)} 
                     placeholder='password'
                     value={password}
                     type='password'

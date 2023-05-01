@@ -1,4 +1,5 @@
 import { AddPostPage } from "@/pages/AddPostPage"
+import { InfoPage } from "@/pages/InfoPage"
 import { MainPage } from "@/pages/MainPage"
 import { NotFoundPage } from "@/pages/NotFoundPage"
 import { PostItemPage } from "@/pages/PostItemPage"
@@ -14,6 +15,7 @@ export enum AppRoutes {
     POST = 'post',
     CREATE_POST = 'createPost',
     POST_LIST = 'post_list',
+    INFO = 'info',
     NOT_FOUND = 'not_found',
 }
 
@@ -22,6 +24,7 @@ export const RoutePath: Record<AppRoutes, string> = {
     [AppRoutes.POST]: '/post/',
     [AppRoutes.POST_LIST]: '/postList/',
     [AppRoutes.CREATE_POST]: '/createPost',
+    [AppRoutes.INFO]: '/info',
     [AppRoutes.NOT_FOUND]: '*',
 }
 
@@ -29,6 +32,10 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.MAIN]: {
         path: RoutePath.main,
         element: <MainPage/>
+    },
+    [AppRoutes.INFO]: {
+        path: RoutePath.info,
+        element: <InfoPage/>
     },
     [AppRoutes.POST]: {
         path: `${RoutePath.post}:id`,

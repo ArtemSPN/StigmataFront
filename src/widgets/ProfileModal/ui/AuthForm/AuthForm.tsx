@@ -1,4 +1,4 @@
-import { classNames } from '@/shared/lib/classNames/classNames';
+import { Mods, classNames } from '@/shared/lib/classNames/classNames';
 import cls from './AuthForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/shared/ui/Button/Button';
@@ -33,17 +33,35 @@ export const AuthForm: React.FC<AuthFormProps> = (props: AuthFormProps) => {
     const error = useSelector(getProfileError)
     const [password, setPassword] = useState("");
     const [isAuth, setIsAuth] = useState(window.localStorage.getItem("user") != undefined);
+    const [usernameError, setUsernameError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+
 
     const auth = () => {
         dispatch(fetchUserData([username,password])).then((res) => {
-            console.log(res.payload);
-            if(!isLoading && res.payload != "Неверный логин или пароль"){
-                setPassword("");
-                setUsername("");
-                setIsAuth(!isAuth);
-                onClose();
+            if(password.length != 0  && username.length != 0){
+                setPasswordError(false);
+                setUsernameError(false);
+                if(!isLoading && res.payload != "Неверный логин или пароль"){
+                    setPassword("");
+                    setUsername("");
+                    setIsAuth(!isAuth);
+                    onClose();
+                }
+            }
+            else{
+                setPasswordError(true);
+                setUsernameError(true);
             }
         });
+    }
+
+    const usernameMods: Mods = {
+        [cls.errorInput]: usernameError
+    }
+
+    const passwordMods: Mods = {
+        [cls.errorInput]: passwordError
     }
 
     const exit = () => {
@@ -61,14 +79,14 @@ export const AuthForm: React.FC<AuthFormProps> = (props: AuthFormProps) => {
                         <div className={cls.inputZone}>
                             <Text title={t('Введите имя пользователя') || " "}/>
                             <Input 
-                                className={cls.input} 
+                                className={classNames(cls.input, usernameMods)} 
                                 placeholder='username' 
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                             <Text title={t('Введите пароль') || " "}/>
                             <Input
-                                className={cls.input}
+                                className={classNames(cls.input, passwordMods)} 
                                 placeholder='password'
                                 value={password}
                                 type='password'
@@ -103,7 +121,7 @@ export const AuthForm: React.FC<AuthFormProps> = (props: AuthFormProps) => {
                             />
                         </div>
                         <div className={cls.btnZone}>
-                            <Button onClick={exit}>Выход</Button>
+                            <Button onClick={exit}>{t('Выход')}</Button>
                         </div>
 
                     </div>
