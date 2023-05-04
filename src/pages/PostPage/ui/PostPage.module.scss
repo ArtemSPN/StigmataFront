@@ -4,9 +4,6 @@
 
 .postPage{
     width: 100%;
-    height: 100vh;
-    overflow-y: scroll;
-    padding-bottom: 40px;
 }
 
 .fullPage{
@@ -23,7 +20,7 @@
 
 .loaderWrap{
     width: 100%;
-    height: 50%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

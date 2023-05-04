@@ -2,6 +2,8 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './Page.module.scss';
 import { MutableRefObject, ReactNode, useRef } from 'react';
 import { useInfiniteScroll } from '@/shared/lib/hooks/useInfiniteScroll/useInfiniteScroll';
+import { useSelector } from 'react-redux';
+import { getPostSectionHasMore } from '@/pages/PostPage/model/selectors/getPostSectionHasMore';
 
 interface PageProps {
     className?: string;

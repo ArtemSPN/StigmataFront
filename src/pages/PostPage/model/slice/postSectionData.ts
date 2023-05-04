@@ -8,6 +8,7 @@ const initialState: PostSectionSchema = {
     error: undefined,
     data: [],
     page: 1,
+    hasMore: true
 };
 
 export const postSectionSlice = createSlice({
@@ -22,12 +23,10 @@ export const postSectionSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
         },
-        // addPost: (state, action) => {
-        //     state.data = {
-        //         ...state.data,
-        //         action.payload
-        //     };
-        // }
+        setHasMore: (state, action: PayloadAction<boolean>) => {
+            state.hasMore = action.payload;
+        },
+
     },
     extraReducers: (builder) => {
         builder
@@ -39,7 +38,16 @@ export const postSectionSlice = createSlice({
                 action: PayloadAction<Post[]>,
             ) => {
                 state.isLoading = false;
-                state.data = action.payload;
+                if(state.page == 1)
+                    state.data = action.payload;
+                else
+                    state.data?.push(...action.payload);
+                state.hasMore = true;
+                if(action.payload == undefined || action.payload.length < 5)
+                    state.hasMore = false;
+                else{
+                    state.page += 1;
+                }
             })
             .addCase(fetchPostSectionData.rejected, (state, action) => {
                 state.isLoading = false;

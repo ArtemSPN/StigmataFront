@@ -23,10 +23,9 @@ export function useInfiniteScroll({
                 rootMargin: '10px',
                 threshold: 1.0,
             };
-            console.log(observer)
             observer.current = new IntersectionObserver(([triggerElement]) => {
                 if (triggerElement.isIntersecting) {
-                    console.log("laskf")
+                    console.log("work!")
                     callback();
                 }
             }, options);

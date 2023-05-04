@@ -20,14 +20,13 @@ export const fetchPostSectionData = createAsyncThunk<
             const { extra, rejectWithValue, dispatch } = thunkApi;
             const {page = 1, sec} = props;
 
-
+            console.log("in function");
             try {
                 const response = await extra.api.get<Post[]>(`/posts/${sec}/${page}`);
                 if (!response.data) {
                     throw new Error();
                 }
-                dispatch(postSectionActions.setPage(page + 1));
-
+                console.log(response.data);
                 return response.data;
             } catch (e) {
                 console.log(e);

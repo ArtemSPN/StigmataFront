@@ -5,4 +5,5 @@ export interface PostSectionSchema {
     error?: string;
     data?: Post[];
     page: number;
+    hasMore?: boolean; 
 }
