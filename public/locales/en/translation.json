@@ -23,6 +23,11 @@
   "Неверный логин или пароль":"Invalid username or password",
   "Cодержание записи:":"Content of the post:",
   "Заголовок записи:":"Post title:",
+  "Загрузите аватар": "Load avatar image",
+  "Вперед": "Prev",
+  "Назад": "Next",
+  "Картинка": "Picture",
+  "Файлы": "Files",
   "Заполните корректно поля ввода. ":"Fill in the input fields correctly. ",
   "Содержание записи не меньше 15 символов":"The content of the record is not less than 15 characters",
   "Заголовок записи не меньше 6 символов":"The title of the record is at least 6 characters"

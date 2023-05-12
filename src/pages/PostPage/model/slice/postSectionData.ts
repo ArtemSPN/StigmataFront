@@ -23,6 +23,9 @@ export const postSectionSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
         },
+        delPost: (state, action: PayloadAction<string>) => {
+            state.data = state.data?.filter((item:Post) => item._id != action.payload);
+        },
         setHasMore: (state, action: PayloadAction<boolean>) => {
             state.hasMore = action.payload;
         },

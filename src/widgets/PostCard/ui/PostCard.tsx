@@ -13,6 +13,8 @@ import { useSelector } from 'react-redux';
 import jwt_decode from "jwt-decode";
 import {ReactComponent as DeleteIcon} from '@/shared/assets/delete.svg'
 import axios from 'axios';
+import { postSectionActions } from '@/pages/PostPage/model/slice/postSectionData';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 
 
@@ -31,8 +33,10 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
     let user = useSelector(getProfileData);
     const {t} = useTranslation();
 
+
     const removePost = async () => {
         await axios.get(`http://localhost:4444/postRemove/${post?._id}`)
+
     }
 
 

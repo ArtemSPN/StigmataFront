@@ -21,6 +21,7 @@ import { navItem } from '@/shared/const/section';
 import { getError } from '@/pages/PostItemPage/model/selectors/getError';
 import { useTranslation } from 'react-i18next';
 import { Page } from '@/shared/ui/Page/Page';
+import { FileList } from '@/widgets/FileList/ui/FileList';
 
 interface PostItemPageProps {
     className?: string;
@@ -69,6 +70,10 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
                             <Text
                                 text={post?.text}
                             />
+                            {
+                                post?.fileArr &&
+                                post?.fileArr.map((item) =>  <FileList key={item} file={item}/>)
+                            }
                             {post && post?.imgArr.length > 0 &&
                             <Slider className={cls.slider} imgArr={post.imgArr}/>
                             }

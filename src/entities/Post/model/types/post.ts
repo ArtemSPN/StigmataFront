@@ -7,6 +7,7 @@ export interface Post {
     text: string;
     section: string;
     imgArr: string[];
+    fileArr: string[];
 }
 
 export interface PostsSchema {

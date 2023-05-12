@@ -4,7 +4,6 @@ import { Avatar } from '@/shared/ui/Avatar/Avatar';
 import { Text, TextSize, TextTheme } from '@/shared/ui/Text/Text';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ImageList } from '@/widgets/ImageList';
 import { Comment } from '@/entities/Comment';
 import jwt_decode from "jwt-decode";
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
@@ -12,20 +11,20 @@ import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfil
 import { useSelector } from 'react-redux';
 import {ReactComponent as DeleteIcon} from '@/shared/assets/delete.svg'
 import axios from 'axios';
+import { Image } from '@/shared/ui/Image/Image';
+import { FileList } from '@/widgets/FileList/ui/FileList';
 
 
 
 interface CommentCardProps {
     className?: string;
     comment?: Comment;
-    imgArr?: string[];
 }
 
 export const CommentCard: React.FC<CommentCardProps> = memo((props: CommentCardProps) => {
     const { 
         className,
         comment,
-        imgArr
     } = props;
     let user = useSelector(getProfileData);
     const {t} = useTranslation();
@@ -39,6 +38,8 @@ export const CommentCard: React.FC<CommentCardProps> = memo((props: CommentCardP
         await axios.get(`http://localhost:4444/commentRemove/${comment?._id}`)
     }
 
+
+    console.log(comment)
 
     return (
         <div className={classNames(cls.postCard, {}, [className])}>
@@ -67,12 +68,15 @@ export const CommentCard: React.FC<CommentCardProps> = memo((props: CommentCardP
                 <Text
                     theme={TextTheme.PRIMARY}
                     text={comment?.text}/>
+                {comment?.img &&
+                <img src={comment?.img} className={cls.img}/>
+                }
+                {
+                    comment?.fileArr &&
+                comment?.fileArr.map((item) =>  <FileList key={item} file={item}/>)
+                }
             </div>
-            {imgArr &&
-            <ImageList
-                className={cls.imgList}
-                imgArr={imgArr}
-            />}
+
         </div>
     );
 });

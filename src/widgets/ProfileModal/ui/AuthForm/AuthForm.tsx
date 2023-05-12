@@ -13,6 +13,9 @@ import { getProfileIsLoading } from '@/widgets/ProfileModal/model/selectors/getP
 import { fetchUserData } from '@/widgets/ProfileModal/model/services/fetchUserData';
 import { useSelector } from 'react-redux';
 import { profileActions } from '@/widgets/ProfileModal/model/slice/profileSlice';
+import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
+import jwt_decode from "jwt-decode";
+
 
 interface AuthFormProps {
     className?: string;
@@ -35,7 +38,11 @@ export const AuthForm: React.FC<AuthFormProps> = (props: AuthFormProps) => {
     const [isAuth, setIsAuth] = useState(window.localStorage.getItem("user") != undefined);
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
+    let user = useSelector(getProfileData);
 
+    if(window.localStorage.getItem("user")){
+        user = jwt_decode(window.localStorage.getItem("user") || "");
+    }
 
     const auth = () => {
         dispatch(fetchUserData([username,password])).then((res) => {
@@ -103,22 +110,9 @@ export const AuthForm: React.FC<AuthFormProps> = (props: AuthFormProps) => {
                     :
                     <div className={classNames(cls.profileModal, {}, [className])}>
                         <Text title={t('Профиль') || " "} size={TextSize.XL}/>
-                        <div className={cls.inputZone}>
-                            <Text title='Имя пользователя:'/>
-                            <Input 
-                                className={cls.input} 
-                                placeholder='username' 
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                            <Text title='Пароль:'/>
-                            <Input
-                                className={cls.input}
-                                placeholder='password'
-                                value={password}
-                                type='password'
-                                onChange={(e) => setPassword(e.target.value)} 
-                            />
+                        <div className={cls.userZone}>
+                            <img src={user?.link} className={cls.avatar}/>
+                            <Text title={user?.username} size={TextSize.L}/>
                         </div>
                         <div className={cls.btnZone}>
                             <Button onClick={exit}>{t('Выход')}</Button>

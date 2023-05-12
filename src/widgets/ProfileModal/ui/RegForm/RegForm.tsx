@@ -23,9 +23,9 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
     } = props;
     const dispatch = useAppDispatch();
     const {t} = useTranslation();
+    const [img, setImg] = useState<Blob>();
     const [username, setUsername] = useState("");
     const [error, setError] = useState(false);
-    const [link, setLink] = useState("");
     const [password, setPassword] = useState("");
 
     const [errUsm, setErrUsm] = useState(false);
@@ -45,19 +45,27 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
     }
 
     const reg = async () => {
-        if(username.length == 0 || link.length == 0 || password.length == 0){
+
+        if(username.length == 0 ||  password.length == 0 || img == undefined){
             setErrUsm(username.length == 0);
-            setErrLink(link.length == 0);
             setErrPas(password.length == 0);
+            setErrLink(img == undefined);
         }
         else{
             setErrUsm(false);
             setErrLink(false);
             setErrPas(false);
+            const id = Date.now();
+            const formData = new FormData();
+            const nameFile = id+"$"+img.name.split(".")[0].replace(' ', '_').slice(0,100)+ "." + img.name.split('.')[1]
+            // eslint-disable-next-line max-len
+            const new_file = new File([img], "file$"+nameFile, {type: img.type});
+            formData.append('file', new_file);
+            await axios.post(`http://localhost:4444/upload`, formData);
             await axios.post("http://localhost:4444/createUser", {
                 username,
                 password,
-                link,
+                link: "file$"+nameFile,
                 role: "user"
             }).then((res) => {
                 console.log(res.data);
@@ -85,13 +93,11 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                 />
-                <Text title={t('Введите ссылку на аватарку') || " "}/>
+                <Text title={t('Загрузите аватар') || " "}/>
                 <Input 
+                    type='file' 
                     className={classNames(cls.input, linkMods)}  
-                    placeholder='avatar' 
-                    value={link}
-                    onChange={(e) => setLink(e.target.value)}
-                />
+                    onChange={(e) => setImg(e.target.files[0])}/>
                 <Text title={t('Введите пароль') || " "}/>
                 <Input
                     className={classNames(cls.input, passwordMods)} 

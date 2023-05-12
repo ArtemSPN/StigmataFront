@@ -12,6 +12,7 @@ interface SliderProps {
 export const Slider: React.FC<SliderProps> = (props: SliderProps) => {
     const { className, imgArr } = props;
     const [img, setImg] = useState(0);
+    const {t} = useTranslation();
 
     const navList = imgArr?.map((item, id) => {
         return (
@@ -46,11 +47,11 @@ export const Slider: React.FC<SliderProps> = (props: SliderProps) => {
                 src={imgArr?.[img]}
             />
             <div className={cls.navigate}>
-                <Button onClick={prevImg}>prev</Button>
+                <Button onClick={prevImg}>{t("Назад")}</Button>
                 <div className={cls.navList}>
                     {navList}
                 </div>
-                <Button onClick={nextImg}>next</Button>
+                <Button onClick={nextImg}>{t("Вперед")}</Button>
             </div>
         </div>
     );

@@ -31,6 +31,9 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
     const [title, setTitle] = useState("");
     const [section, setSection] = useState("");
 
+    const [img, setImg] = useState<Blob[]>([]);
+    const [file, setFile] = useState<Blob[]>([]);
+
     const [errorText, setErrorText] = useState(false);
     const [errorSelect, setErrorSelect] = useState(false);
     const [errorTitle, setErrorTitle] = useState(false);
@@ -39,13 +42,43 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
 
     const toggleAddBtn = async () => {
         if(value.length > 15 && title.length > 6){
+            const fileArr:string[] = [];
+            const imgArr:string[] = [];
+            if(img){
+                Array.from(img).forEach(async (fileItem) => {
+                    const formData = new FormData();
+                    // eslint-disable-next-line max-len
+                    const nameFile = Date.now()+"$"+fileItem.name.split(".")[0].replace(' ', '_').slice(0,100)+ "." + fileItem.name.split('.')[1]
+                    const new_file = new File([fileItem], "file$"+nameFile, {type: fileItem.type});
+                    formData.append('file', new_file);
+                    console.log(new_file.name);
+                    imgArr.push(new_file.name);
+                    await axios.post(`http://localhost:4444/upload`, formData);
+                })
+            }
+        
+            if(file){
+        
+                Array.from(file).forEach(async (fileItem) => {
+                    const formData = new FormData();
+                    // eslint-disable-next-line max-len
+                    const nameFile = Date.now()+"$"+fileItem.name.split(".")[0].replace(' ', '_').slice(0,100)+ "." + fileItem.name.split('.')[1]
+                    const new_file = new File([fileItem], "file$"+nameFile, {type: fileItem.type});
+                    formData.append('file', new_file);
+                    console.log(new_file.name);
+                    fileArr.push(new_file.name);
+                    await axios.post(`http://localhost:4444/upload`, formData);
+                })
+            }
             console.log({value,title, });
             await axios.post("http://localhost:4444/post", {
                 text: value,
                 title,
                 section, 
                 author: user?.username,
-                authorUrl: user?.link
+                authorUrl: user?.link,
+                imgArr,
+                fileArr
             }).then(() => {
                 setErrorText(false);
                 setErrorTitle(false);
@@ -120,6 +153,25 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                     className={classNames(cls.input, modsTitle)}
                     onChange={(e) => setTitle(e.target.value)}
                 />
+                <div className={cls.inputArea}>
+                    <div className={cls.imgInput}>
+                        <Text title={t('Картинка')+':'} size={TextSize.L}/>
+                        <Input 
+                            type='file' 
+                            className={cls.input}  
+                            multiple='multiple' 
+                            onChange={(e) => setImg(e.target.files)}/>
+                    </div>
+                    <div className={cls.fileInput}>
+                        <Text title={t('Файлы')+':'} size={TextSize.L}/>
+                        <Input
+                            type='file' 
+                            multiple='multiple' 
+                            className={cls.input}
+                            onChange={(e) => setFile(e.target.files)}    
+                        />
+                    </div>
+                </div>
                 {(errorText || errorTitle) && 
                 <Text 
                     title={`${t('Заполните корректно поля ввода. ')}

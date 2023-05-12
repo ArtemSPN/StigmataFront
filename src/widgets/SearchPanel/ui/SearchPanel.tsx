@@ -41,7 +41,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = memo((props: SearchPanelP
         console.log(link);         
         if(e.target.value == "")
             link
-                ?dispatch(fetchPostSectionData({sec: link, page}))
+                ?dispatch(fetchPostSectionData({sec: link, page:1}))
                 :dispatch(fetchPostData());     
     }
 
