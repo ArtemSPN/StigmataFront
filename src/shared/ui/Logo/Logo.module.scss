@@ -4,4 +4,15 @@
     color: var(--primary-color);
     font-weight: bold;
     padding-bottom: 30px;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+
+}
+
+.menuBtn{
+    fill: var(--primary-color);
+    width: 25px;
+    height: 25px;
+    margin-bottom: 15px;
 }

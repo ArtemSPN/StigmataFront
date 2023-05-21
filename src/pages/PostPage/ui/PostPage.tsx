@@ -20,6 +20,7 @@ import { Page } from '@/shared/ui/Page/Page';
 import { getPostSectionPage } from '@/pages/PostPage/model/selectors/getPostSectionPage';
 import { Skeleton } from '@/shared/ui/Skeleton/Skeleton';
 import { getPostSectionHasMore } from '@/pages/PostPage/model/selectors/getPostSectionHasMore';
+import { HeaderPage } from '@/widgets/HeaderPage';
 
 interface PostPageProps {
     className?: string;
@@ -55,7 +56,7 @@ const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
     }, [sec])
 
     const onLoadNextPart = useCallback(() => { 
-        console.log("!!!!!!!!!")
+        dispatch(postSectionActions.setLoading(true));
         dispatch(fetchPostSectionData({
             page,
             sec,
@@ -74,9 +75,7 @@ const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <Page onScrollEnd={hasMore?onLoadNextPart:undefined}>
                 <div className={classNames(cls.postPage, {}, [className])}>
-                    <div className={cls.header}>
-                        <PageTitle titleArrays={[t("Обсуждение"), navItem[sec]]}/>
-                    </div>
+                    <HeaderPage tittlePage={[t("Обсуждение"), navItem[sec]]}/>
                     {!isLoading && postsSection?.length == 0?
                         <div className={cls.fullPage}>
                             <Text title='В этом разделе пока нет записей' size={TextSize.XL} className={cls.text}/>

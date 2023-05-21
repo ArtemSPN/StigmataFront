@@ -13,8 +13,6 @@ import { useSelector } from 'react-redux';
 import jwt_decode from "jwt-decode";
 import {ReactComponent as DeleteIcon} from '@/shared/assets/delete.svg'
 import axios from 'axios';
-import { postSectionActions } from '@/pages/PostPage/model/slice/postSectionData';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 
 

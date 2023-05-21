@@ -1,7 +1,7 @@
 .addComForm{
-    padding-left: 30px;
+    padding-left: var(--addCom-padding);
     margin-top: 30px;
-    display: flex;
+    display: var(--addCom-textArea-display);
     justify-content: space-between;
 }
 
@@ -14,19 +14,20 @@
 }
 
 .inputArea{
-    width: 75%;
+    width: var(--addCom-area-width);
     height: 300px;
 }
 
 .btns{
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: var(--addCom-textBtns-display);
     align-items: center;
 }
 
 .btnItem{
-    width: 60%;
+    width: var(--addCom-btns-width);
+    margin-right: var(--addCom-btns-margin);
     margin-bottom: 10px;
 }
 

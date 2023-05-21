@@ -2,8 +2,8 @@ import {classNames } from '@/shared/lib/classNames/classNames';
 import cls from './InfoPage.module.scss';
 import { PageTitle } from '@/shared/ui/PageTitle/PageTitle';
 import { Text } from '@/shared/ui/Text/Text';
-import { useTranslation } from 'react-i18next';
 import { Page } from '@/shared/ui/Page/Page';
+import { HeaderPage } from '@/widgets/HeaderPage';
 
 
 const AddPostPage = () => {
@@ -11,7 +11,7 @@ const AddPostPage = () => {
     return (
         <Page>
             <div className={classNames(cls.infoPage)}>
-                <PageTitle titleArrays={["O сайте"]}/>
+                <HeaderPage tittlePage={["O сайте"]}/>
                 <div className={cls.content}>
                     <Text className={cls.textBlock} 
                         title='Сайт-форум “STIGMATA” создан 

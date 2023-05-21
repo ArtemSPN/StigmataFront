@@ -23,18 +23,24 @@
     justify-content: space-between;
 }
 
+.header{
+    margin-bottom: 5px;
+}
+
 .select{
     font: var(--font-l);
+    max-width: 90%;
     border: 3px solid var(--primary-color);
 
 }
 
 .btns{
-    margin-top: 20px;
+    width: 100%;
+    margin-top: 10%;
 }
 
 .btnItem{
-    width: 20%;
+    width: 120px;
     margin-right: 10px;
 }
 
@@ -47,7 +53,7 @@
 
 
 .imgInput, .fileInput{
-    display: flex;
+    display: var(--addPost-display);
     justify-content: space-between;
     margin-top: 10px;
 }

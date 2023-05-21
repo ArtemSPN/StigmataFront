@@ -1,6 +1,7 @@
 .postCard{
     width: 100%;
-    padding: 30px 30px 10px 30px;
+    padding: var(--postCard-padding);
+    padding-bottom: 10px;
     border-radius: 20px;
     background-color: var(--bg-color);
     border: 2px solid var(--primary-color);
@@ -27,4 +28,9 @@
 
 .deleteBtn{
     fill: var(--primary-color);
+}
+
+.contentPost{
+    max-height: 250px;
+    overflow: hidden;
 }

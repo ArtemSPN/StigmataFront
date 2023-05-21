@@ -49,7 +49,7 @@ export const Slider: React.FC<SliderProps> = (props: SliderProps) => {
             <div className={cls.navigate}>
                 <Button onClick={prevImg}>{t("Назад")}</Button>
                 <div className={cls.navList}>
-                    {navList}
+                    {window.screen.width > 552? navList: null}
                 </div>
                 <Button onClick={nextImg}>{t("Вперед")}</Button>
             </div>

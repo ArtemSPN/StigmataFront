@@ -1,9 +1,13 @@
 .profileModal{
-    width: 400px;
+    width:100%;
+}
+
+.authForm{
+    width: 300px;
 }
 
 .inputZone{
-    width: 70%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     height: 60%;

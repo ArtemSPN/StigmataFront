@@ -7,13 +7,12 @@ import { PageTitle } from '@/shared/ui/PageTitle/PageTitle';
 import { Post, fetchPostData, getPostData, getPostError, getPostIsLoading } from '@/entities/Post';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
-import {ReactComponent as Format} from '@/shared/assets/format.svg'
 import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { useState } from 'react';
 import { TextTheme, TextSize, Text } from '@/shared/ui/Text/Text';
-import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import { useTranslation } from 'react-i18next';
 import { Page } from '@/shared/ui/Page/Page';
+import { HeaderPage } from '@/widgets/HeaderPage';
 
 interface MainPageProps {
     className?: string;
@@ -33,6 +32,11 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
         console.log(isLoading);
     });
 
+
+    const changeView = () => {
+        setFull(!full);
+    }
+
     //if(!isLoading) posts.map((item: Post) => console.log(item));
 
     const listSkeleton = [
@@ -46,12 +50,7 @@ const MainPage: React.FC<MainPageProps> = (props: MainPageProps) => {
     return (
         <Page>
             <div className={classNames(cls.mainPage, {}, [className])}>
-                <div className={cls.header}>
-                    <PageTitle titleArrays={[t("Главная страница")]}/>
-                    <Button theme={ButtonTheme.CLEAR}>
-                        <Format onClick={() => setFull(!full)}/>
-                    </Button>
-                </div>
+                <HeaderPage tittlePage={[t("Главная страница")]} changeView={changeView} className={cls.header}/>
                 {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
                 {!isLoading?
                     posts?.map((item: Post) => {return <PostCard post={item} key={item?.title} className={cls.postCard} full={full}/>})

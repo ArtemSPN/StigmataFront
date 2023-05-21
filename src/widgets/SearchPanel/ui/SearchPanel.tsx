@@ -13,6 +13,8 @@ import { postSectionActions } from '@/pages/PostPage/model/slice/postSectionData
 import { fetchPostSectionData } from '@/pages/PostPage/model/services/fetchPostSectionData';
 import { useParams } from 'react-router-dom';
 import { getPostSectionPage } from '@/pages/PostPage/model/selectors/getPostSectionPage';
+import { getSidebarDesktop } from '@/widgets/Sidebar/model/selectors/sidebarSelectors';
+import { sidebarActions } from '@/widgets/Sidebar/model/slice/sidebarSlice';
 
 interface SearchPanelProps {
     className?: string;
@@ -23,7 +25,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = memo((props: SearchPanelP
     const [text, setText] = useState("");
     const dispatch = useAppDispatch();
     const page = useSelector(getPostSectionPage) || 1;
-
+    const isDesktop = useSelector(getSidebarDesktop)
 
     const link = window.location.href.split("/")[4];
 
@@ -32,7 +34,12 @@ export const SearchPanel: React.FC<SearchPanelProps> = memo((props: SearchPanelP
             link
                 ?dispatch(postSectionActions.searchPost({text}))
                 :dispatch(postActions.searchPost({text}));
+
+            if(!isDesktop){
+                dispatch(sidebarActions.setVisible(false));
+            }
         }
+        
     }
 
 

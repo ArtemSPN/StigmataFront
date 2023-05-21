@@ -1,7 +1,7 @@
 .postCard{
     width: 100%;
     border-radius: 20px;
-    padding-left: 30px;
+    padding-left: var(--addCom-padding);
     margin-top: 20px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .img{
-    height: 400px;
+    width: 80%;
 }
 
 .deleteBtn{

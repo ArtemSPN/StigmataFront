@@ -10,11 +10,13 @@ import { PostItemSchema } from '@/pages/PostItemPage/model/types/postItem';
 import { CommentSchema } from '@/entities/Comment/model/types/comment';
 import { PostSectionSchema } from '@/pages/PostPage/model/types/postSection';
 import { UserSchema } from '@/entities/User/user';
+import { SidebarSchema } from '@/widgets/Sidebar/model/types/sidebar';
 
 export interface StateSchema {
     posts: PostsSchema,
     comments: CommentSchema,
     user: UserSchema,
+    sidebar: SidebarSchema
     // async
     postItem?: PostItemSchema,
     postSection?: PostSectionSchema,

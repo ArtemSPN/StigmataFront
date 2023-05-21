@@ -22,6 +22,7 @@ import { getError } from '@/pages/PostItemPage/model/selectors/getError';
 import { useTranslation } from 'react-i18next';
 import { Page } from '@/shared/ui/Page/Page';
 import { FileList } from '@/widgets/FileList/ui/FileList';
+import { HeaderPage } from '@/widgets/HeaderPage';
 
 interface PostItemPageProps {
     className?: string;
@@ -50,7 +51,11 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
             <Page>
                 <div className={classNames(cls.postItemPage, {}, [className])}>
                     {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
-                    {!isLoading && !error && <PageTitle titleArrays={[t("Обсуждение"), navItem[post?.section], post?.title  || " "]}/>}
+                    {!isLoading && !error 
+                    && <HeaderPage 
+                        tittlePage={[t("Обсуждение"), navItem[post?.section], post?.title  || " "]}
+                        className={cls.head}
+                    />}
                     {!isLoading?
                         <div className={cls.contentWrap}>
                             <div className={cls.headerPost}>

@@ -1,0 +1,21 @@
+.headerPage{
+    width: 100%;
+    display: flex;
+    fill: var(--primary-color);
+    height: 50px;
+    align-items: center;
+    justify-content: space-between;
+     margin-bottom: -20px;
+}
+
+.viewBtn{
+    display: var(--viewBtn-display);
+}
+
+.menuBtn{
+    display: var(--menuBtn-display);
+}
+
+.btns{
+    display: flex;
+}

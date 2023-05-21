@@ -9,6 +9,7 @@ import { postReducer } from '@/entities/Post';
 import { commentReducer } from '@/entities/Comment/model/slice/commentSlice';
 import { useReducer } from 'react';
 import { profileReducer } from '@/widgets/ProfileModal/model/slice/profileSlice';
+import { sidebarReducer } from '@/widgets/Sidebar/model/slice/sidebarSlice';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -19,6 +20,7 @@ export function createReduxStore(
         posts: postReducer,
         comments: commentReducer,
         user: profileReducer,
+        sidebar: sidebarReducer,
         ...asyncReducers,
     };
 

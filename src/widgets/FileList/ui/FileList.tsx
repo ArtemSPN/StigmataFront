@@ -14,6 +14,8 @@ import { Text, TextSize } from '@/shared/ui/Text/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button/Button';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSidebarDesktop } from '@/widgets/Sidebar/model/selectors/sidebarSelectors';
 
 interface FileListProps {
     className?: string;
@@ -24,6 +26,7 @@ interface FileListProps {
 export const FileList: React.FC<FileListProps> = (props: FileListProps) => {
     const { className, file } = props;
     const {t} = useTranslation();
+    const isDesktop = useSelector(getSidebarDesktop);
 
     let icon = <UnFileIcon/>
 
@@ -73,7 +76,7 @@ export const FileList: React.FC<FileListProps> = (props: FileListProps) => {
         <div className={classNames(cls.fileList, {}, [className])}>
             {icon}
             <Link to={`http://localhost:4444/download/${file}`}>
-                <Text title={file.split('$')[2]} className={cls.filename} size={TextSize.L}/>
+                <Text title={file.split('$')[2]} className={cls.filename} size={isDesktop?TextSize.L:TextSize.M}/>
 
             </Link>
         </div>

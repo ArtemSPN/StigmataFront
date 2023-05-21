@@ -12,6 +12,7 @@ import jwt_decode from "jwt-decode";
 import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfileData';
 import { useSelector } from 'react-redux';
 import { Page } from '@/shared/ui/Page/Page';
+import { HeaderPage } from '@/widgets/HeaderPage';
 
 interface AddPostPageProps {
     className?: string;
@@ -117,34 +118,35 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
     return (
         <Page>
             <div className={classNames(cls.addPostPage, {}, [className])}>
-                <PageTitle titleArrays={[t('Добавление записи')]}/>
-                <div className={cls.head}>
-                    <Text title={t('Cодержание записи:') || " "}
-                        size={TextSize.XL} 
-                        className={classNames(cls.text)}
-                    />
-                    <select name="selectSection"
-                        className={classNames(cls.select, modsSelect)}
-                        onChange={(e) => setSection(e.target.value)}
-                    >
-                        {navItemList.map((item, id) => {
-                            return <option 
-                                value={item.link}
-                                key={item.title}
-                            >
-                                {item.title}
-                            </option>
-                        })}
-                        <option value={''} selected disabled></option>
-                    </select>
-                </div>
-
+                <HeaderPage tittlePage={[t("Добавление записи")]} className={cls.header}/>
+                <Text title={t('Категория записи:') || " "}
+                    size={TextSize.L} 
+                    className={classNames(cls.text)}
+                />
+                <select name="selectSection"
+                    className={classNames(cls.select, modsSelect)}
+                    onChange={(e) => setSection(e.target.value)}
+                >
+                    {navItemList.map((item, id) => {
+                        return <option 
+                            value={item.link}
+                            key={item.title}
+                        >
+                            {item.title}
+                        </option>
+                    })}
+                    <option value={''} selected disabled></option>
+                </select>
+                <Text title={t('Cодержание записи:') || " "}
+                    size={TextSize.L} 
+                    className={classNames(cls.text)}
+                />
                 <textarea  
                     value={value} 
                     onChange={(e) => setValue(e.target.value)}
                     className={classNames(cls.textArea, modsText)}
                 />
-                <Text title={t('Заголовок записи:') || " "} size={TextSize.XL} className={cls.text}/>
+                <Text title={t('Заголовок записи:') || " "} size={TextSize.L} className={cls.text}/>
                 <Input 
                     sizeInput={InputSize.L}
                     maxLength={100}
@@ -185,11 +187,6 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                         onClick={toggleAddBtn}
                     >
                         {t("Добавить")}
-                    </Button>
-                    <Button 
-                        className={cls.btnItem}
-                    >
-                        {t("Загрузить")}
                     </Button>
                     <Button 
                         className={cls.btnItem} 

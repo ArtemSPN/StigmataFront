@@ -36,4 +36,54 @@
     // Цвета
     --red-light: #f00;
     --red-dark: #ce0505;
+
+    //adaptation
+
+    --sidebar-right: 0;
+    --sidebar-position: relative;
+    --postCard-padding: 30px;
+    --addPost-display: flex;
+    --viewBtn-display: block;
+    --menuBtn-display: none;
+    --sidebar-width: 30%;
+    --sidebar-bg-color: none;
+    --sidebar-border: none;
+
+    --addCom-padding: 30px;
+    --addCom-textArea-display: flex;
+    --addCom-textBtns-display: column;
+    --addCom-btns-width: 60%;
+    --addCom-btns-margin: 0;
+    --addCom-area-width: 70%;
+
+
+    @media (max-width: 850px) {
+        --sidebar-right: -350px;
+        --sidebar-position: absolute;
+        --addPost-display: block;
+        --menuBtn-display: block;
+        --sidebar-width: 50%;
+        --sidebar-border: 1px var(--secondary-color) solid;
+    }
+
+    @media (max-width: 450px) {
+        --addCom-textArea-display: block;
+        --addCom-btns-width: 40%;
+        --addCom-btns-margin: 10px;
+        --addCom-textBtns-display: none;
+        --addCom-padding: 0px;
+        --sidebar-width: 100%;
+        --font-size-l: 16px;
+        --font-line-l: 24px;
+        --sidebar-right: -350px;
+        --postCard-padding: 10px;
+        --viewBtn-display: none;
+        --sidebar-position: absolute;
+        --addPost-display: block;
+        --font-size-m: 12px;
+        --sidebar-border: none;
+        --font-line-m: 20px;
+        --addCom-area-width: 100%;
+
+    }
 }
