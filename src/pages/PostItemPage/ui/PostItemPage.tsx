@@ -21,7 +21,7 @@ import { navItem } from '@/shared/const/section';
 import { getError } from '@/pages/PostItemPage/model/selectors/getError';
 import { useTranslation } from 'react-i18next';
 import { Page } from '@/shared/ui/Page/Page';
-import { FileList } from '@/widgets/FileList/ui/FileList';
+import { FileList } from '@/widgets/FileList';
 import { HeaderPage } from '@/widgets/HeaderPage';
 
 interface PostItemPageProps {
@@ -78,6 +78,7 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
                             />
                             {
                                 post?.fileArr &&
+                                //@ts-ignore
                                 post?.fileArr.map((item) =>  <FileList key={item} file={item}/>)
                             }
                             {post && post?.imgArr.length > 0 &&

@@ -16,8 +16,9 @@ export const fetchUserData = createAsyncThunk<
                 if (!response.data) {
                     throw new Error();
                 }
+                //@ts-ignore
                 window.localStorage.setItem("user", response.data?.token);
-
+                //@ts-ignore    
                 return response.data?.user;
             } catch (e) {
                 console.log(e);

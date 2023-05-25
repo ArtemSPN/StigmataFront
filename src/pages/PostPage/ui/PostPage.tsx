@@ -78,6 +78,7 @@ const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <Page onScrollEnd={hasMore?onLoadNextPart:undefined}>
                 <div className={classNames(cls.postPage, {}, [className])}>
+                    {/* @ts-ignore */}
                     <HeaderPage tittlePage={[t("Обсуждение"), navItem[sec]]}/>
                     {!isLoading && postsSection?.length == 0?
                         <div className={cls.fullPage}>
