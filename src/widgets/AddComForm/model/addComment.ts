@@ -10,7 +10,7 @@ const addComment = async (author: string,authorUrl: string, text: string, postId
         // eslint-disable-next-line max-len
         const new_file = new File([imgF], "file$"+nameFile, {type: imgF.type});
         formData.append('file', new_file);
-        await axios.post(`http://localhost:4444/upload`, formData);
+        await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
     }
 
     if(file){
@@ -23,12 +23,12 @@ const addComment = async (author: string,authorUrl: string, text: string, postId
             formData.append('file', new_file);
             console.log(new_file.name);
             fileArr.push(new_file.name);
-            await axios.post(`http://localhost:4444/upload`, formData);
+            await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
         })
     }
     
     
-    await axios.post(`http://localhost:4444/comment`, 
+    await axios.post(`${process.env.REACT_APP_API_URL}/comment`, 
         {author,
             authorUrl,
             text,

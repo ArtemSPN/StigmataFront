@@ -35,7 +35,7 @@ export const CommentCard: React.FC<CommentCardProps> = memo((props: CommentCardP
 
 
     const removeCom = async () => {
-        await axios.get(`http://localhost:4444/commentRemove/${comment?._id}`)
+        await axios.get(`${process.env.REACT_APP_API_URL}/commentRemove/${comment?._id}`)
     }
 
 

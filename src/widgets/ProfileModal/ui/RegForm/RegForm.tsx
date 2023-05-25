@@ -61,8 +61,8 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
             // eslint-disable-next-line max-len
             const new_file = new File([img], "file$"+nameFile, {type: img.type});
             formData.append('file', new_file);
-            await axios.post(`http://localhost:4444/upload`, formData);
-            await axios.post("http://localhost:4444/createUser", {
+            await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
+            await axios.post(`${process.env.REACT_APP_API_URL}/createUser`, {
                 username,
                 password,
                 link: "file$"+nameFile,
