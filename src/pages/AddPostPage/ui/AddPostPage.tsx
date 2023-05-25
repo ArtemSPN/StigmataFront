@@ -161,15 +161,19 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                         <Input 
                             type='file' 
                             className={cls.input}  
-                            multiple='multiple' 
+                            // @ts-ignore
+                            multiple='multiple'
+                            // @ts-ignore 
                             onChange={(e) => setImg(e.target.files)}/>
                     </div>
                     <div className={cls.fileInput}>
                         <Text title={t('Файлы')+':'} size={TextSize.L}/>
                         <Input
                             type='file' 
+                            // @ts-ignore
                             multiple='multiple' 
                             className={cls.input}
+                            // @ts-ignore
                             onChange={(e) => setFile(e.target.files)}    
                         />
                     </div>

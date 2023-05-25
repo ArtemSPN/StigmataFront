@@ -97,6 +97,7 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
                 <Input 
                     type='file' 
                     className={classNames(cls.input, linkMods)}  
+                    // @ts-ignore
                     onChange={(e) => setImg(e.target.files[0])}/>
                 <Text title={t('Введите пароль') || " "}/>
                 <Input

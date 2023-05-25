@@ -45,14 +45,17 @@ export const AddComForm: React.FC<AddComFormProps> = (props: AddComFormProps) =>
                 <textarea className={cls.textArea} value={value} onChange={(e) => setValue(e.target.value)}/>
                 <div className={cls.imgInput}>
                     <Text title={t('Картинка')+':'} size={TextSize.L}/>
+                    {/* @ts-ignore */}
                     <Input type='file' className={cls.input}  onChange={(e) => setImg(e.target.files[0])}/>
                 </div>
                 <div className={cls.fileInput}>
                     <Text title={t('Файлы')+':'} size={TextSize.L}/>
                     <Input
                         type='file' 
+                        // @ts-ignore
                         multiple='multiple' 
                         className={cls.input}
+                        // @ts-ignore
                         onChange={(e) => setFile(e.target.files)}    
                     />
                 </div>

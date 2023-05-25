@@ -49,6 +49,7 @@ const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
         console.log();
         dispatch(fetchPostSectionData({
             page: 1,
+            // @ts-ignore
             sec,
         }));
         console.log(page + " - posle");
@@ -58,7 +59,9 @@ const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {
     const onLoadNextPart = useCallback(() => { 
         dispatch(postSectionActions.setLoading(true));
         dispatch(fetchPostSectionData({
+            // @ts-ignore
             page,
+            // @ts-ignore
             sec,
         }));
     }, [dispatch, page, sec]);

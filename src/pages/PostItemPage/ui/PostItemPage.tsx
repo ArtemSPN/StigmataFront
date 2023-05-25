@@ -53,6 +53,7 @@ const PostItemPage: React.FC<PostItemPageProps> = (props: PostItemPageProps) => 
                     {error && <Text theme={TextTheme.ERROR} size={TextSize.XL} title="Произошла ошибка при загрузке записи"/>}
                     {!isLoading && !error 
                     && <HeaderPage 
+                    // @ts-ignore
                         tittlePage={[t("Обсуждение"), navItem[post?.section], post?.title  || " "]}
                         className={cls.head}
                     />}

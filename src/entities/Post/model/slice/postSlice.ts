@@ -14,7 +14,9 @@ export const postsSlice = createSlice({
     reducers: {
         searchPost: (state, action) => {
             console.log(action);
+            // @ts-ignore
             console.log(state.data?.posts.filter((item: Post) => item.title.includes(action.payload.text)))
+            // @ts-ignore
             state.data.posts = state.data?.posts.filter((item: Post) => item.title.includes(action.payload.text));
         }
     },
