@@ -1,5 +1,5 @@
 .sidebar{
-    display: flex;
+    display: var(--sidebar-display);
     position: var(--sidebar-position); 
     flex-direction: column;
     align-items: center;
@@ -7,14 +7,15 @@
     padding: 20px;
     margin-left: 30px;
     height: 100vh;
-    transition: 0.5s;
+    transition: var(--sidebar-transition);
     background-color: var(--bg-color);
     border-left: var(--sidebar-border);
 
 }
 
 .sidebar-active{
-    transition: 0.5s;
+    transition: var(--sidebar-transition);
+    display: flex;
     background-color: var(--bg-color);
     width: var(--sidebar-width);
     z-index: 10;

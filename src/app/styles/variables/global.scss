@@ -40,6 +40,8 @@
     //adaptation
 
     --sidebar-right: 0;
+    --sidebar-display: flex;
+    --sidebar-transition: 0;
     --sidebar-position: relative;
     --postCard-padding: 30px;
     --addPost-display: flex;
@@ -58,6 +60,8 @@
 
 
     @media (max-width: 850px) {
+        --sidebar-display: none;
+        --sidebar-transition: 0.5s;
         --sidebar-right: -350px;
         --sidebar-position: absolute;
         --addPost-display: block;
@@ -67,6 +71,8 @@
     }
 
     @media (max-width: 450px) {
+        --sidebar-display: none;
+        --sidebar-transition: 0.5s;
         --addCom-textArea-display: block;
         --addCom-btns-width: 40%;
         --addCom-btns-margin: 10px;
