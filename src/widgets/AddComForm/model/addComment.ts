@@ -1,3 +1,4 @@
+import { REACT_APP_API_URL } from "@/shared/const/url";
 import axios from "axios";
 
 // eslint-disable-next-line max-len
@@ -10,7 +11,7 @@ const addComment = async (author: string,authorUrl: string, text: string, postId
         // eslint-disable-next-line max-len
         const new_file = new File([imgF], "file$"+nameFile, {type: imgF.type});
         formData.append('file', new_file);
-        await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
+        await axios.post(`${REACT_APP_API_URL}/upload`, formData);
     }
 
     if(file){
@@ -23,12 +24,12 @@ const addComment = async (author: string,authorUrl: string, text: string, postId
             formData.append('file', new_file);
             console.log(new_file.name);
             fileArr.push(new_file.name);
-            await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
+            await axios.post(`${REACT_APP_API_URL}/upload`, formData);
         })
     }
     
     
-    await axios.post(`${process.env.REACT_APP_API_URL}/comment`, 
+    await axios.post(`${REACT_APP_API_URL}/comment`, 
         {author,
             authorUrl,
             text,

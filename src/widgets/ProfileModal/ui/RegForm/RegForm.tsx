@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { fetchUserData } from '@/widgets/ProfileModal/model/services/fetchUserData';
 import axios from 'axios';
+import { REACT_APP_API_URL } from '@/shared/const/url';
 
 interface RegFormProps {
     className?: string;
@@ -61,8 +62,8 @@ export const RegForm: React.FC<RegFormProps> = (props: RegFormProps) => {
             // eslint-disable-next-line max-len
             const new_file = new File([img], "file$"+nameFile, {type: img.type});
             formData.append('file', new_file);
-            await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
-            await axios.post(`${process.env.REACT_APP_API_URL}/createUser`, {
+            await axios.post(`${REACT_APP_API_URL}/upload`, formData);
+            await axios.post(`${REACT_APP_API_URL}/createUser`, {
                 username,
                 password,
                 link: "file$"+nameFile,

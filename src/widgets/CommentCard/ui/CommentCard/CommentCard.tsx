@@ -13,6 +13,7 @@ import {ReactComponent as DeleteIcon} from '@/shared/assets/delete.svg'
 import axios from 'axios';
 import { Image } from '@/shared/ui/Image/Image';
 import { FileList } from '@/widgets/FileList/ui/FileList';
+import { REACT_APP_API_URL } from '@/shared/const/url';
 
 
 
@@ -35,7 +36,7 @@ export const CommentCard: React.FC<CommentCardProps> = memo((props: CommentCardP
 
 
     const removeCom = async () => {
-        await axios.get(`${process.env.REACT_APP_API_URL}/commentRemove/${comment?._id}`)
+        await axios.get(`${REACT_APP_API_URL}/commentRemove/${comment?._id}`)
     }
 
 

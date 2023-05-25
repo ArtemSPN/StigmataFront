@@ -1,7 +1,7 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './ImageList.module.scss';
 import { Image } from '@/shared/ui/Image/Image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ImageListProps {
     className?: string;
@@ -19,11 +19,13 @@ export const ImageList: React.FC<ImageListProps> = (props: ImageListProps) => {
 
     console.log(window.screen.width);
 
-
-    // if(window.screen.width < 350)
-    //     setImgCount(2);
-    // if(window.screen.width < 850)
-    //     setImgCount(3);
+    useEffect(() => {
+        if(window.screen.width < 850)
+            setImgCount(3);
+        if(window.screen.width < 350)
+            setImgCount(2);
+    }, []);
+    
 
 
     return (

@@ -16,6 +16,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSidebarDesktop } from '@/widgets/Sidebar/model/selectors/sidebarSelectors';
+import { REACT_APP_API_URL } from '@/shared/const/url';
 
 interface FileListProps {
     className?: string;
@@ -75,7 +76,7 @@ export const FileList: React.FC<FileListProps> = (props: FileListProps) => {
     return (
         <div className={classNames(cls.fileList, {}, [className])}>
             {icon}
-            <Link to={`${process.env.REACT_APP_API_URL}/download/${file}`}>
+            <Link to={`${REACT_APP_API_URL}/download/${file}`}>
                 <Text title={file.split('$')[2]} className={cls.filename} size={isDesktop?TextSize.L:TextSize.M}/>
 
             </Link>

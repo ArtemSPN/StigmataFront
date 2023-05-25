@@ -63,7 +63,7 @@
         --sidebar-display: none;
         --sidebar-transition: 0.5s;
         --sidebar-right: -350px;
-        --sidebar-position: absolute;
+        --sidebar-position: fixed;
         --addPost-display: block;
         --menuBtn-display: block;
         --sidebar-width: 50%;
@@ -84,7 +84,7 @@
         --sidebar-right: -350px;
         --postCard-padding: 10px;
         --viewBtn-display: none;
-        --sidebar-position: absolute;
+        --sidebar-position: fixed;
         --addPost-display: block;
         --font-size-m: 12px;
         --sidebar-border: none;

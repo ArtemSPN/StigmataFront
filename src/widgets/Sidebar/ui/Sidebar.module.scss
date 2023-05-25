@@ -1,5 +1,5 @@
 .sidebar{
-    display: var(--sidebar-display);
+    display: flex;
     position: var(--sidebar-position); 
     flex-direction: column;
     align-items: center;
@@ -14,9 +14,9 @@
 }
 
 .sidebar-active{
-    display: flex;
+    //display: flex;
     transition: var(--sidebar-transition);
-
+    position: var(--sidebar-position);
     background-color: var(--bg-color);
     width: var(--sidebar-width);
     z-index: 10;

@@ -13,6 +13,7 @@ import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfil
 import { useSelector } from 'react-redux';
 import { Page } from '@/shared/ui/Page/Page';
 import { HeaderPage } from '@/widgets/HeaderPage';
+import { REACT_APP_API_URL } from '@/shared/const/url';
 
 interface AddPostPageProps {
     className?: string;
@@ -54,7 +55,7 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                     formData.append('file', new_file);
                     console.log(new_file.name);
                     imgArr.push(new_file.name);
-                    await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
+                    await axios.post(`${REACT_APP_API_URL}/upload`, formData);
                 })
             }
         
@@ -68,11 +69,11 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                     formData.append('file', new_file);
                     console.log(new_file.name);
                     fileArr.push(new_file.name);
-                    await axios.post(`${process.env.REACT_APP_API_URL}/upload`, formData);
+                    await axios.post(`${REACT_APP_API_URL}/upload`, formData);
                 })
             }
             console.log({value,title, });
-            await axios.post(`${process.env.REACT_APP_API_URL}/post`, {
+            await axios.post(`${REACT_APP_API_URL}/post`, {
                 text: value,
                 title,
                 section, 
