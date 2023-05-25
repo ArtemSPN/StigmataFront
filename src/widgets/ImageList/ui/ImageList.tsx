@@ -22,7 +22,7 @@ export const ImageList: React.FC<ImageListProps> = (props: ImageListProps) => {
     useEffect(() => {
         if(window.screen.width < 850)
             setImgCount(3);
-        if(window.screen.width < 350)
+        if(window.screen.width < 400)
             setImgCount(2);
     }, []);
     
@@ -35,7 +35,7 @@ export const ImageList: React.FC<ImageListProps> = (props: ImageListProps) => {
                     ?imgList?.slice((imgCount - 1)*-1)
                     :imgList
             }
-            {imgArr?.length > 4 
+            {imgArr?.length > 4 && imgCount != 2
             &&
             <Image src={imgArr[0]} blur={true} num={imgArr.length - imgCount}/>
             }
