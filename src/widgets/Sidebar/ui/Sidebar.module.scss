@@ -14,8 +14,9 @@
 }
 
 .sidebar-active{
-    transition: var(--sidebar-transition);
     display: flex;
+    transition: var(--sidebar-transition);
+
     background-color: var(--bg-color);
     width: var(--sidebar-width);
     z-index: 10;

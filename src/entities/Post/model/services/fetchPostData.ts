@@ -12,7 +12,7 @@ export const fetchPostData = createAsyncThunk<
             const { extra, rejectWithValue } = thunkApi;
 
             try {
-                const response = await extra.api.get<Post[]>(`/posts`);
+                const response = await extra.api.get<Post[]>(`https://stigmataback.onrender.com/posts`);
 
                 if (!response.data) {
                     throw new Error();
