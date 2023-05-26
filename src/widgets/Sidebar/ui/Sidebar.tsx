@@ -11,7 +11,8 @@ import { getProfileData } from '@/widgets/ProfileModal/model/selectors/getProfil
 import { useDispatch, useSelector } from 'react-redux';
 import jwt_decode from "jwt-decode";
 import { useTranslation } from 'react-i18next';
-import { getSidebarVisible } from '@/widgets/Sidebar/model/selectors/sidebarSelectors';
+import { getSidebarDesktop, getSidebarVisible } from '@/widgets/Sidebar/model/selectors/sidebarSelectors';
+import { sidebarActions } from '@/widgets/Sidebar/model/slice/sidebarSlice';
 
 
 interface SidebarProps {
@@ -22,6 +23,9 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
     const { className } = props;
     let user = useSelector(getProfileData);
     const {t} = useTranslation();
+    const dispatch = useDispatch();
+    const isDesktop = useSelector(getSidebarDesktop)
+
     const sidebarIsVisible = useSelector(getSidebarVisible); 
 
     if(window.localStorage.getItem("user")){
@@ -32,6 +36,12 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
         [cls['sidebar-active']]: sidebarIsVisible,
     };
 
+    const closeMenu = () => {
+        if(!isDesktop){
+            dispatch(sidebarActions.setVisible(false));
+        }
+    }
+
     return (
         <div className={classNames(cls.sidebar, mods, [className])}>
             <Button theme={ButtonTheme.CLEAR} showClick={false} className={cls.logo}>
@@ -39,7 +49,7 @@ export const Sidebar: React.FC<SidebarProps> = memo((props: SidebarProps) => {
             </Button>
             <SearchPanel/>
             {user &&   
-            <Link to={"/createPost"} className={cls.addPost}>
+            <Link to={"/createPost"} className={cls.addPost} onClick={closeMenu}>
                 <Button className={cls.addPostBtn}>
                     {t("Добавить запись")}    
                 </Button>
