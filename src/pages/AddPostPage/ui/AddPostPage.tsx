@@ -14,6 +14,7 @@ import { useSelector } from 'react-redux';
 import { Page } from '@/shared/ui/Page/Page';
 import { HeaderPage } from '@/widgets/HeaderPage';
 import { REACT_APP_API_URL } from '@/shared/const/url';
+import { redirect } from 'react-router-dom';
 
 interface AddPostPageProps {
     className?: string;
@@ -85,6 +86,7 @@ const AddPostPage: React.FC<AddPostPageProps> = (props: AddPostPageProps) => {
                 setErrorText(false);
                 setErrorTitle(false);
                 setErrorSelect(false);
+                redirect("/");
                 clearAll();
             }).catch(e => {
                 console.log(e);
