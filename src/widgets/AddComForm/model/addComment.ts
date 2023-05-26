@@ -34,7 +34,7 @@ const addComment = async (author: string,authorUrl: string, text: string, postId
             authorUrl,
             text,
             postId,
-            img: imgF && "file$"+id+"$"+imgF.name.split(".")[0].slice(0,100)+ "." + imgF.name.split('.')[1],
+            img: imgF !== undefined && "file$"+id+"$"+imgF.name.split(".")[0].slice(0,100)+ "." + imgF.name.split('.')[1],
             fileArr}
     ).then(function (response) {
         console.log(response);
