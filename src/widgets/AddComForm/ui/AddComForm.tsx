@@ -35,8 +35,12 @@ export const AddComForm: React.FC<AddComFormProps> = (props: AddComFormProps) =>
 
 
     const toggleAddBtn = () => {
+        if(img !== undefined)
         // @ts-ignore
-        addComment(user?.username || "",user?.link || "", value, id || "", img, file);
+            addComment(user?.username || "",user?.link || "", value, id || "", file, img);
+        else
+        // @ts-ignore
+            addComment(user?.username || "",user?.link || "", value, id || "", file);
         setValue("");
     }
 

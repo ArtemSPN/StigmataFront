@@ -4,7 +4,7 @@ export interface Comment {
     authorUrl: string;
     postId: string;
     text: string;
-    img: string;
+    img?: string;
     fileArr: string[];
     _id: string;
 }

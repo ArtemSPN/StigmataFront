@@ -2,7 +2,7 @@ import { REACT_APP_API_URL } from "@/shared/const/url";
 import axios from "axios";
 
 // eslint-disable-next-line max-len
-const addComment = async (author: string,authorUrl: string, text: string, postId: string, imgF: Blob, file: Blob[]) => {
+const addComment = async (author: string,authorUrl: string, text: string, postId: string, file: Blob[], imgF?: Blob) => {
     const fileArr:string[] = [];
     const id = Date.now();
     if(imgF){
