@@ -35,7 +35,7 @@ export const PostCard: React.FC<PostCardProps> = memo((props: PostCardProps) => 
 
     const removePost = async () => {
         await axios.get(`${REACT_APP_API_URL}/postRemove/${post?._id}`)
-
+        location.reload();
     }
 
 
